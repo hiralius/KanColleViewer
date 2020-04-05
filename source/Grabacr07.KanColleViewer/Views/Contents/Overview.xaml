@@ -291,63 +291,8 @@
 				</DockPanel>
 			</Border>
 
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-
-				<metro2:CallMethodButton Grid.Row="0"
-										 Grid.Column="1"
-										 Style="{StaticResource JumbButtonStyleKey}"
-										 MethodName="Jump"
-										 MethodParameter="Expeditions">
-					<StackPanel DataContext="{Binding Content.Expeditions}">
-						<TextBlock Text="{Binding Name}" />
-
-						<Rectangle Height=".99"
-								   Margin="0,7,0,3"
-								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-
-						<ItemsControl ItemsSource="{Binding Fleets.Fleets}">
-							<ItemsControl.ItemTemplate>
-								<DataTemplate>
-									<TextBlock x:Name="Expedition"
-											   Style="{DynamicResource DefaultTextStyleKey}"
-											   Margin="0,4,0,0">
-										<Run Text="{Binding Id, Mode=OneWay, StringFormat=/{0}}"
-											 Style="{DynamicResource EmphaticTextElementStyleKey}" />
-										<Run x:Name="Remaining"
-											 Text="{Binding Expedition.Remaining, StringFormat=- {0}, Mode=OneWay}" />
-									</TextBlock>
-									<DataTemplate.Triggers>
-										<DataTrigger Binding="{Binding Id, Mode=OneWay}"
-													 Value="1">
-											<Setter TargetName="Expedition"
-													Property="Visibility"
-													Value="Collapsed" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding Expedition.IsInExecution}"
-													 Value="False">
-											<Setter TargetName="Remaining"
-													Property="Text"
-													Value="" />
-										</DataTrigger>
-									</DataTemplate.Triggers>
-								</DataTemplate>
-							</ItemsControl.ItemTemplate>
-						</ItemsControl>
-					</StackPanel>
-				</metro2:CallMethodButton>
-
-				<metro2:CallMethodButton Grid.Row="1"
-										 Grid.Column="0"
-										 Grid.ColumnSpan="2"
-										 Style="{StaticResource JumbButtonStyleKey}"
+			<WrapPanel>
+				<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
 										 MethodName="Jump"
 										 MethodParameter="Quests">
 					<StackPanel DataContext="{Binding Content.Quests}">
@@ -400,9 +345,48 @@
 						</ItemsControl>
 					</StackPanel>
 				</metro2:CallMethodButton>
-			</Grid>
 
-			<WrapPanel>
+				<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
+										 MethodName="Jump"
+										 MethodParameter="Expeditions">
+					<StackPanel DataContext="{Binding Content.Expeditions}">
+						<TextBlock Text="{Binding Name}" />
+
+						<Rectangle Height=".99"
+								   Margin="0,7,0,3"
+								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+
+						<ItemsControl ItemsSource="{Binding Fleets.Fleets}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<TextBlock x:Name="Expedition"
+											   Style="{DynamicResource DefaultTextStyleKey}"
+											   Margin="0,4,0,0">
+										<Run Text="{Binding Id, Mode=OneWay, StringFormat=/{0}}"
+											 Style="{DynamicResource EmphaticTextElementStyleKey}" />
+										<Run x:Name="Remaining"
+											 Text="{Binding Expedition.Remaining, StringFormat=- {0}, Mode=OneWay}" />
+									</TextBlock>
+									<DataTemplate.Triggers>
+										<DataTrigger Binding="{Binding Id, Mode=OneWay}"
+													 Value="1">
+											<Setter TargetName="Expedition"
+													Property="Visibility"
+													Value="Collapsed" />
+										</DataTrigger>
+										<DataTrigger Binding="{Binding Expedition.IsInExecution}"
+													 Value="False">
+											<Setter TargetName="Remaining"
+													Property="Text"
+													Value="" />
+										</DataTrigger>
+									</DataTemplate.Triggers>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</StackPanel>
+				</metro2:CallMethodButton>
+
 				<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
 										 MethodName="Jump"
 										 MethodParameter="Repairyard">
