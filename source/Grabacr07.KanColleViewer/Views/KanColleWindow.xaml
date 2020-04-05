@@ -11,6 +11,7 @@
 				   xmlns:kcvc="http://schemes.grabacr.net/winfx/2015/kancolleviewer/controls"
 				   xmlns:kcvi="http://schemes.grabacr.net/winfx/2015/kancolleviewer/interactivity"
 				   xmlns:kcvv="http://schemes.grabacr.net/winfx/2015/kancolleviewer/converters"
+				   xmlns:metro2="clr-namespace:MetroTrilithon.UI.Controls;assembly=MetroTrilithon.Desktop"
 				   xmlns:properties="clr-namespace:Grabacr07.KanColleViewer.Properties"
 				   xmlns:views="clr-namespace:Grabacr07.KanColleViewer.Views"
 				   xmlns:viewModels="clr-namespace:Grabacr07.KanColleViewer.ViewModels"
@@ -99,6 +100,19 @@
 						HorizontalAlignment="Right"
 						VerticalAlignment="Top"
 						WindowChrome.IsHitTestVisibleInChrome="True">
+				
+				<metro2:CallMethodButton Content="艦"
+												 Visibility="{Binding InfoVisibility}"
+												 Padding="12,8"
+												 Margin="0,5,8,8"
+												 MethodName="ShowShipCatalog" />
+				
+				<metro2:CallMethodButton Content="装"
+												 Visibility="{Binding InfoVisibility}"
+												 Padding="12,8"
+												 Margin="0,5,0,8"
+												 MethodName="ShowSlotItemCatalog" />
+
 				<controls:ZoomFactorSelector ZoomFactor="{Binding ZoomFactor}"
 											 ToolTip="{Binding Source={x:Static models:ResourceService.Current}, Path=Resources.ZoomFactorSelector_Tooltip}"
 											 Margin="4,0" />

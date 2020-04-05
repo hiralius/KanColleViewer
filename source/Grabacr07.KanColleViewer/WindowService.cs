@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,6 +68,7 @@ namespace Grabacr07.KanColleViewer
 							this.MainWindow.StatusBar = this.Information.SelectedItem;
 							StatusService.Current.Set(Resources.StatusBar_Ready);
 							ThemeService.Current.ChangeAccent(Accent.Blue);
+							kanColleWindow.InfoVisibility = Visibility.Visible;
 							break;
 						case WindowServiceMode.InSortie:
 							ThemeService.Current.ChangeAccent(Accent.Orange);

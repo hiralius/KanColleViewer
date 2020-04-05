@@ -84,14 +84,7 @@
 
 	<ScrollViewer VerticalScrollBarVisibility="Auto"
 				  PanningMode="Both">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="220" />
-				<ColumnDefinition Width="Auto"
-								  MinWidth="140" />
-			</Grid.ColumnDefinitions>
-
+		<WrapPanel>
 			<Border VerticalAlignment="Top">
 				<DockPanel DataContext="{Binding Content.Fleets}">
 					<ListBox DockPanel.Dock="Top"
@@ -298,7 +291,7 @@
 				</DockPanel>
 			</Border>
 
-			<Grid Grid.Column="1">
+			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
@@ -307,26 +300,6 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-
-				<Border Grid.Row="0"
-						Grid.Column="0">
-					<StackPanel>
-						<TextBlock Text="データ" />
-
-						<Rectangle Height=".99"
-								   Margin="0,7,0,3"
-								   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-
-						<metro2:CallMethodButton Content="艦娘一覧"
-												 Padding="12,8"
-												 Margin="0,5,0,8"
-												 MethodName="ShowShipCatalog" />
-
-						<metro2:CallMethodButton Content="装備一覧"
-												 Padding="12,8"
-												 MethodName="ShowSlotItemCatalog" />
-					</StackPanel>
-				</Border>
 
 				<metro2:CallMethodButton Grid.Row="0"
 										 Grid.Column="1"
@@ -429,7 +402,7 @@
 				</metro2:CallMethodButton>
 			</Grid>
 
-			<StackPanel Grid.Column="2">
+			<WrapPanel>
 				<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
 										 MethodName="Jump"
 										 MethodParameter="Repairyard">
@@ -532,7 +505,7 @@
 						</ItemsControl>
 					</StackPanel>
 				</metro2:CallMethodButton>
-			</StackPanel>
-		</Grid>
+			</WrapPanel>
+		</WrapPanel>
 	</ScrollViewer>
 </UserControl>

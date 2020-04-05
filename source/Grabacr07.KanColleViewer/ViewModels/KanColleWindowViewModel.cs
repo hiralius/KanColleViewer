@@ -12,6 +12,8 @@ using Grabacr07.KanColleViewer.ViewModels.Messages;
 using Grabacr07.KanColleViewer.ViewModels.Settings;
 using Grabacr07.KanColleViewer.Views;
 using Grabacr07.KanColleViewer.Views.Controls;
+using Grabacr07.KanColleViewer.ViewModels.Catalogs;
+using Grabacr07.KanColleViewer.Views.Catalogs;
 using Livet.Messaging;
 using MetroTrilithon.Mvvm;
 using MetroTrilithon.UI.Controls;
@@ -47,6 +49,21 @@ namespace Grabacr07.KanColleViewer.ViewModels
 				if (this._ContentVisibility != value)
 				{
 					this._ContentVisibility = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		public Visibility _InfoVisibility = Visibility.Collapsed;
+
+		public Visibility InfoVisibility
+		{
+			get { return this._InfoVisibility; }
+			set
+			{
+				if (this._InfoVisibility != value)
+				{
+					this._InfoVisibility = value;
 					this.RaisePropertyChanged();
 				}
 			}
@@ -253,6 +270,17 @@ namespace Grabacr07.KanColleViewer.ViewModels
 			{
 				this.UpdateTaskbar(TaskbarItemProgressState.None, .0);
 			}
+		}
+		public void ShowShipCatalog()
+		{
+			var catalog = new ShipCatalogWindowViewModel();
+			WindowService.Current.MainWindow.Transition(catalog, typeof(ShipCatalogWindow));
+		}
+
+		public void ShowSlotItemCatalog()
+		{
+			var catalog = new SlotItemCatalogViewModel();
+			WindowService.Current.MainWindow.Transition(catalog, typeof(SlotItemCatalogWindow));
 		}
 	}
 }
