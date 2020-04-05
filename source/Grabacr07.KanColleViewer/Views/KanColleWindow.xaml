@@ -88,7 +88,7 @@
 				   x:FieldModifier="private"
 				   metro:MetroWindow.IsCaptionBar="True">
 			<Border DockPanel.Dock="Bottom"
-					Height="4" />
+					Height="5" />
 			<kcvc:AppIcon Width="36"
 						  Height="36"
 						  Background="Transparent"
@@ -104,22 +104,22 @@
 				<metro2:CallMethodButton Content="艦"
 												 Visibility="{Binding InfoVisibility}"
 												 Padding="12,8"
-												 Margin="0,5,8,8"
+												 Margin="0,4,8,0"
 												 MethodName="ShowShipCatalog" />
 				
 				<metro2:CallMethodButton Content="装"
 												 Visibility="{Binding InfoVisibility}"
 												 Padding="12,8"
-												 Margin="0,5,0,8"
+												 Margin="0,4,0,0"
 												 MethodName="ShowSlotItemCatalog" />
 
 				<controls:ZoomFactorSelector ZoomFactor="{Binding ZoomFactor}"
 											 ToolTip="{Binding Source={x:Static models:ResourceService.Current}, Path=Resources.ZoomFactorSelector_Tooltip}"
-											 Margin="4,0" />
+											 Margin="4,6,4,4" />
 				<metro:CaptionButton IsChecked="{Binding Settings.TopMost.Value, Mode=TwoWay}"
 									 ToolTip="{Binding Resources.Settings_Window_TopMost, Source={x:Static models:ResourceService.Current}, Mode=OneWay}"
-									 Style="{DynamicResource PinButtonStyleKey}" />
-				<metro:SystemButtons />
+									 Style="{DynamicResource PinButtonStyleKey}" Margin="0,6,0,4" />
+				<metro:SystemButtons Margin="0" />
 			</StackPanel>
 			<TextBlock Text="{Binding Title}"
 					   Style="{DynamicResource CaptionTextStyleKey}"
