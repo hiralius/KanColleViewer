@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +23,19 @@ namespace Grabacr07.KanColleViewer.Views.Contents
 		public Overview()
 		{
 			InitializeComponent();
+		}
+
+		private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+		{
+			var sv = sender as Control;
+
+			e.Handled = true;
+			var newEventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+			{
+				RoutedEvent = UIElement.MouseWheelEvent,
+				Source = sender
+			};
+			((UIElement)sv.Parent).RaiseEvent(newEventArg);
 		}
 	}
 }
