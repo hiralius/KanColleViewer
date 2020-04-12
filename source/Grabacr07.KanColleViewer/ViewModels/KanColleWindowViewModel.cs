@@ -54,6 +54,10 @@ namespace Grabacr07.KanColleViewer.ViewModels
 			}
 		}
 
+		#endregion
+
+		#region InfoVisibility 変更通知プロパティ
+
 		public Visibility _InfoVisibility = Visibility.Collapsed;
 
 		public Visibility InfoVisibility

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,6 +44,13 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 		#endregion
 
+		public void TabClick()
+		{
+			if (_SelectedItem == this.Tools)
+			{
+				Tools.TabVisibility = System.Windows.Visibility.Visible;
+			}
+		}
 
 		// ----- Other elements
 

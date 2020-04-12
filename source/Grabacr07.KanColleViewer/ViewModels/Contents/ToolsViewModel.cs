@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Threading.Tasks;
 using Grabacr07.KanColleViewer.Composition;
 using Grabacr07.KanColleViewer.ViewModels.Composition;
@@ -53,6 +54,29 @@ namespace Grabacr07.KanColleViewer.ViewModels.Contents
 
 		#endregion
 
+		#region TabVisibility 変更通知プロパティ
+
+		public Visibility _TabVisibility = Visibility.Visible;
+
+		public Visibility TabVisibility
+		{
+			get { return this._TabVisibility; }
+			set
+			{
+				if (this._TabVisibility != value)
+				{
+					this._TabVisibility = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		public void TabDoubleClick()
+		{
+			this.TabVisibility = Visibility.Collapsed;
+		}
 
 		public ToolsViewModel()
 		{
