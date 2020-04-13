@@ -48,7 +48,14 @@ namespace Grabacr07.KanColleViewer.ViewModels
 		{
 			if (_SelectedItem == this.Tools)
 			{
-				Tools.TabVisibility = System.Windows.Visibility.Visible;
+				if (Tools.TabVisibility == System.Windows.Visibility.Collapsed)
+				{
+					Tools.TabVisibility = System.Windows.Visibility.Visible;
+				}
+				else
+				{
+					Tools.TabVisibility = System.Windows.Visibility.Collapsed;
+				}
 			}
 		}
 
