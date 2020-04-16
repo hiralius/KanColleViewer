@@ -29,7 +29,7 @@
 
 		<ScrollViewer VerticalScrollBarVisibility="Auto"
 					  PanningMode="Both">
-			<Grid MinWidth="90"
+			<Grid MinWidth="30"
 				  Background="{DynamicResource ActiveBackgroundBrushKey}">
 
 				<Grid.RowDefinitions>
@@ -52,7 +52,7 @@
 
 				<Rectangle Grid.Row="1"
 						   Height=".99"
-						   Margin="20,10"
+						   Margin="10"
 						   Fill="{DynamicResource InactiveForegroundBrushKey}"
 						   Opacity="0.5" />
 

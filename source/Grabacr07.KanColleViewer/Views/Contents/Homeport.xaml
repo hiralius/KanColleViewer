@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Grabacr07.KanColleViewer.Views.Contents.Homeport"
+<UserControl x:Class="Grabacr07.KanColleViewer.Views.Contents.Homeport"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -58,8 +58,41 @@
 			</TextBlock>
 		</StackPanel>
 
-
 		<StackPanel Grid.Column="1"
+					Orientation="Horizontal"
+					VerticalAlignment="Center">
+			<UniformGrid Columns="1"
+						 Grid.IsSharedSizeScope="True"
+						 Margin="16,0,0,0">
+				<Panel.Resources>
+					<DataTemplate DataType="{x:Type contentsVm:MaterialsViewModel+MaterialViewModel}">
+						<Grid MinWidth="125"
+							  Margin="0,0,4,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Style="{DynamicResource DefaultTextStyleKey}"
+									   VerticalAlignment="Bottom">
+								<Run Text="{Binding Display, Mode=OneWay}" />
+								<Run Text=":" />
+							</TextBlock>
+							<TextBlock Grid.Column="1"
+									   Text="{Binding Value, Mode=OneWay}"
+									   Style="{DynamicResource EmphaticTextStyleKey}"
+									   HorizontalAlignment="Right"
+									   VerticalAlignment="Bottom"/>
+						</Grid>
+					</DataTemplate>
+				</Panel.Resources>
+
+				<controls:MetroComboBox ItemsSource="{Binding Materials.Values}"
+										SelectedItem="{Binding Materials.SelectedItem3, Mode=TwoWay}" />
+				<controls:MetroComboBox ItemsSource="{Binding Materials.Values}"
+										SelectedItem="{Binding Materials.SelectedItem4, Mode=TwoWay}" />
+			</UniformGrid>
+
+			<StackPanel Grid.Column="1"
 					Orientation="Horizontal"
 					VerticalAlignment="Center">
 			<UniformGrid Columns="1"
@@ -92,6 +125,7 @@
 				<controls:MetroComboBox ItemsSource="{Binding Materials.Values}"
 										SelectedItem="{Binding Materials.SelectedItem2, Mode=TwoWay}" />
 			</UniformGrid>
+			</StackPanel>
 
 			<Grid>
 				<Grid.RowDefinitions>
