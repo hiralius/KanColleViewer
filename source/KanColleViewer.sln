@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanColleViewer", "Grabacr07.KanColleViewer\KanColleViewer.csproj", "{C5F0111F-3F68-4A74-BB20-BB762564D080}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -92,6 +92,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizationMemoPlugin", ".
 		{4E2EB2E0-E5FE-4FEB-A3E5-5F2F05CD1A67} = {4E2EB2E0-E5FE-4FEB-A3E5-5F2F05CD1A67}
 		{0AF0B9FF-D981-4D0F-A41F-C3AB6FE2F16D} = {0AF0B9FF-D981-4D0F-A41F-C3AB6FE2F16D}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialChartPlugin", "Plugins\MaterialChartPlugin\MaterialChartPlugin\MaterialChartPlugin.csproj", "{22A9BF6A-8534-4340-97CE-916B8FB91FEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -292,6 +294,18 @@ Global
 		{D4679208-8CE8-43FB-A223-D5D5D4053B7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4679208-8CE8-43FB-A223-D5D5D4053B7B}.Release|x86.ActiveCfg = Release|Any CPU
 		{D4679208-8CE8-43FB-A223-D5D5D4053B7B}.Release|x86.Build.0 = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Debug|x86.Build.0 = Debug|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release (beta)|Any CPU.ActiveCfg = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release (beta)|Any CPU.Build.0 = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release (beta)|x86.ActiveCfg = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release (beta)|x86.Build.0 = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release|x86.ActiveCfg = Release|Any CPU
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -311,6 +325,7 @@ Global
 		{75A62817-2F64-4179-939C-B28914BDC566} = {5E122478-836E-4B7D-B0A4-F5EAA40BBE2A}
 		{BDE5A07D-7F83-48C7-B61B-198FD4C0BCD5} = {D844E42C-9406-43BF-9681-4F06F6CB3AD9}
 		{D4679208-8CE8-43FB-A223-D5D5D4053B7B} = {D844E42C-9406-43BF-9681-4F06F6CB3AD9}
+		{22A9BF6A-8534-4340-97CE-916B8FB91FEC} = {D844E42C-9406-43BF-9681-4F06F6CB3AD9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B6BE3CB-AA99-4DDE-BEE3-CA6BE9D9059B}

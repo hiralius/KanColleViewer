@@ -53,8 +53,8 @@ namespace Grabacr07.KanColleViewer.Models.Cef
 
 		public static bool TryGetKanColleCanvas(this ChromiumWebBrowser webBrowser, out IFrame canvas)
 		{
-			var browser = webBrowser.GetBrowser();
-			var gameFrame = browser.GetFrame("game_frame");
+			var browser = webBrowser?.GetBrowser();
+			var gameFrame = browser?.GetFrame("game_frame");
 			if (gameFrame == null)
 			{
 				canvas = null;

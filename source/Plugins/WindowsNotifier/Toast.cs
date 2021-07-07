@@ -1,8 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using DesktopToast;
+using NAudio;
+using NAudio.Wave;
 
 namespace Grabacr07.KanColleViewer.Plugins
 {
@@ -28,6 +33,8 @@ namespace Grabacr07.KanColleViewer.Plugins
 
 			}
 		}
+
+		public static ObservableCollection<SettingsBase> Collections;
 
 		#endregion
 #if DEBUG
@@ -60,6 +67,16 @@ namespace Grabacr07.KanColleViewer.Plugins
 
 		public void Show()
 		{
+			var setting = Collections.First(x => x.Header == request.ToastHeadline);
+			if ( (setting != null) && setting.Enable )
+			{
+				this.request.ToastAudio = ToastAudio.Silent;
+				Task.Run(() =>
+				{
+					PlaySound(setting.File);
+				});
+			}
+
 			ToastManager.ShowAsync(this.request)
 				.ContinueWith(t =>
 				{
@@ -68,6 +85,16 @@ namespace Grabacr07.KanColleViewer.Plugins
 					if (t.Result == ToastResult.Failed)
 						this.ToastFailed?.Invoke();
 				});
+
+		}
+
+		private void PlaySound(string file)
+		{
+			if (!File.Exists(file)) throw new FileNotFoundException(file);
+
+			WaveOut wave = new WaveOut();
+			wave.Init(new AudioFileReader(file));
+			wave.Play();
 		}
 	}
 }
