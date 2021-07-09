@@ -470,6 +470,11 @@ namespace Grabacr07.KanColleWrapper
 					evacuationOfferedShipIds = null;
 					towOfferedShipIds = null;
 				});
+
+			proxy.api_req_sortie_battleresult
+				.TryParse()
+				.Where(x => x.IsSuccess)
+				.Subscribe(x => BattleResult(x));
 		}
 
 
@@ -529,6 +534,28 @@ namespace Grabacr07.KanColleWrapper
 					var target = this.Fleets[deck.api_id];
 					target.Update(deck);
 				}
+			}
+		}
+
+		private void BattleResult(SvData data)
+		{
+			if (Combined) return;
+
+			// 出撃艦隊を取り出す
+			var fleet = Fleets.First(x => x.Value.IsInSortie).Value;
+
+			// 戦闘後HPを更新
+			for (int i = 0; i < 10; i++)
+			{
+				string hp = data.Request[$"api_l_value[{i}]"];
+				if (hp == null)
+				{
+					continue;
+				}
+
+				var rawData = fleet.Ships[i].RawData;
+				rawData.api_nowhp = int.Parse(hp);
+				fleet.Ships[i].Update(rawData);
 			}
 		}
 
