@@ -15,6 +15,22 @@ namespace Grabacr07.KanColleViewer.ViewModels.Contents.Fleets
 
 		public string TotalLevel => this.Source.TotalLevel.ToString("###0");
 
+		public string TotalFire => this.Source.TotalFire.ToString();
+
+		public string TotalAir => this.Source.TotalAir.ToString();
+
+		public string TotalASW => this.Source.TotalASW.ToString();
+
+		public string TotalReconn => this.Source.TotalReconn.ToString("");
+
+		public string Decision33_1 => this.Source.Decision33_1.ToString("0.0");
+
+		public string Decision33_2 => this.Source.Decision33_2.ToString("0.0");
+
+		public string Decision33_3 => this.Source.Decision33_3.ToString("0.0");
+
+		public string Decision33_4 => this.Source.Decision33_4.ToString("0.0");
+
 		public string MinAirSuperiorityPotential => this.Source.MinAirSuperiorityPotential.ToString("##0");
 
 		public string MaxAirSuperiorityPotential => this.Source.MaxAirSuperiorityPotential.ToString("##0");

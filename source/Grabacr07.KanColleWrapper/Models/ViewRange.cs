@@ -209,14 +209,21 @@ namespace Grabacr07.KanColleWrapper.Models
 
 		public override double Calc(Fleet[] fleets)
 		{
-			if (fleets == null || fleets.Length == 0) return 0;
+			return CCalc(fleets)[0];
+		}
+
+		public double[] CCalc(Fleet[] fleets)
+		{
+			var result = new double[4];
+
+			if (fleets == null || fleets.Length == 0) return result;
 
 			var ships = this.GetTargetShips(fleets)
 						.Where(x => !x.Situation.HasFlag(ShipSituation.Evacuation))
 						.Where(x => !x.Situation.HasFlag(ShipSituation.Tow))
 						.ToArray();
 
-			if (!ships.Any()) return 0;
+			if (!ships.Any()) return result;
 
 			var itemScore = ships
 				.SelectMany(x => x.EquippedItems)
@@ -234,7 +241,12 @@ namespace Grabacr07.KanColleWrapper.Models
 							 && KanColleClient.Current.Settings.IsViewRangeCalcIncludeSecondFleet;
 			var vacancyScore = ((isCombined ? 12 : 6) - ships.Length) * 2;
 
-			return itemScore + shipScore - admiralScore + vacancyScore;
+			for(int i = 0; i < 4; i++)
+			{
+				result[i] = (itemScore * (i + 1)) + shipScore - admiralScore + vacancyScore;
+			}
+
+			return result;
 		}
 
 		private Ship[] GetTargetShips(Fleet[] fleets)

@@ -60,6 +60,168 @@ namespace Grabacr07.KanColleWrapper.Models
 
 		#endregion
 
+		#region TotalFire 変更通知プロパティ
+		private int _TotalFire;
+
+		/// <summary>
+		/// 火力合計
+		/// </summary>
+		public int TotalFire
+		{
+			get { return this._TotalFire; }
+			private set
+			{
+				if (this._TotalFire != value)
+				{
+					this._TotalFire = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+		#region TotalAir 変更通知プロパティ
+		private int _TotalAir;
+
+		/// <summary>
+		/// 対空合計
+		/// </summary>
+		public int TotalAir
+		{
+			get { return this._TotalAir; }
+			private set
+			{
+				if(this._TotalAir != value)
+				{
+					this._TotalAir = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+		#region TotalAS 変更通知プロパティ
+		private int _TotalASW;
+
+		/// <summary>
+		/// 対潜合計
+		/// </summary>
+		public int TotalASW
+		{
+			get { return this._TotalASW; }
+			private set
+			{
+				if (this._TotalASW != value)
+				{
+					this._TotalASW = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+		#region TotalReconn 変更通知プロパティ
+		private int _TotalReconn;
+
+		/// <summary>
+		/// 索敵合計
+		/// </summary>
+		public int TotalReconn
+		{
+			get { return this._TotalReconn; }
+			private set
+			{
+				if (this._TotalReconn != value)
+				{
+					this._TotalReconn = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+		#region Decision33_1 変更通知プロパティ
+		private ViewRangeType4 calc33;
+		private double _Decision33_1;
+
+		/// <summary>
+		/// 判定式(33)係数1
+		/// </summary>
+		public double Decision33_1
+		{
+			get { return this._Decision33_1; }
+			private set
+			{
+				if (this._Decision33_1 != value)
+				{
+					this._Decision33_1 = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+		#region Decision33_1 変更通知プロパティ
+		private double _Decision33_2;
+
+		/// <summary>
+		/// 判定式(33)係数2
+		/// </summary>
+		public double Decision33_2
+		{
+			get { return this._Decision33_2; }
+			private set
+			{
+				if (this._Decision33_2 != value)
+				{
+					this._Decision33_2 = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+		#region Decision33_1 変更通知プロパティ
+		private double _Decision33_3;
+
+		/// <summary>
+		/// 判定式(33)係数3
+		/// </summary>
+		public double Decision33_3
+		{
+			get { return this._Decision33_3; }
+			private set
+			{
+				if (this._Decision33_3 != value)
+				{
+					this._Decision33_3 = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+		#region Decision33_4 変更通知プロパティ
+		private double _Decision33_4;
+
+		/// <summary>
+		/// 判定式(33)係数4
+		/// </summary>
+		public double Decision33_4
+		{
+			get { return this._Decision33_4; }
+			private set
+			{
+				if (this._Decision33_4 != value)
+				{
+					this._Decision33_4 = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+		#endregion
+
+
 		#region MinAirSuperiorityPotential 変更通知プロパティ
 
 		private double _MinAirSuperiorityPotential;
@@ -211,6 +373,8 @@ namespace Grabacr07.KanColleWrapper.Models
 
 		public FleetState(Homeport homeport, params Fleet[] fleets)
 		{
+			calc33 = new ViewRangeType4();
+
 			this.homeport = homeport;
 			this.source = fleets ?? new Fleet[0];
 
@@ -234,6 +398,10 @@ namespace Grabacr07.KanColleWrapper.Models
 			var firstFleetShips = this.source.FirstOrDefault()?.Ships.WithoutEvacuated().ToArray() ?? new Ship[0];
 
 			this.TotalLevel = ships.HasItems() ? ships.Sum(x => x.Level) : 0;
+			this.TotalFire = ships.HasItems() ? ships.Sum(x => x.RawData.api_karyoku[0]) : 0;
+			this.TotalAir = ships.HasItems() ? ships.Sum(x => x.RawData.api_taiku[0]) : 0;
+			this.TotalASW = ships.HasItems() ? ships.Sum(x => x.ASW) : 0;
+			this.TotalReconn = ships.HasItems() ? ships.Sum(x => x.ViewRange) : 0;
 			this.AverageLevel = ships.HasItems() ? (double)this.TotalLevel / ships.Length : 0.0;
 			this.MinAirSuperiorityPotential = firstFleetShips.Sum(x => x.GetAirSuperiorityPotential(AirSuperiorityCalculationOptions.Minimum));
 			this.MaxAirSuperiorityPotential = firstFleetShips.Sum(x => x.GetAirSuperiorityPotential(AirSuperiorityCalculationOptions.Maximum));
@@ -242,6 +410,13 @@ namespace Grabacr07.KanColleWrapper.Models
 			var logic = ViewRangeCalcLogic.Get(KanColleClient.Current.Settings.ViewRangeCalcType);
 			this.ViewRange = logic.Calc(this.source);
 			this.ViewRangeCalcType = logic.Name;
+
+			// 33式
+			var results = calc33.CCalc(this.source);
+			this.Decision33_1 = results[0];
+			this.Decision33_2 = results[1];
+			this.Decision33_3 = results[2];
+			this.Decision33_4 = results[3];
 
 			this.Calculated?.Invoke(this, new EventArgs());
 		}

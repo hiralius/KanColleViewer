@@ -1,9 +1,10 @@
-﻿<fleets:FleetsViewModel xmlns:Livet="clr-namespace:Livet;assembly=Livet"
+<fleets:FleetsViewModel xmlns:Livet="clr-namespace:Livet;assembly=Livet"
 						xmlns:Messaging="clr-namespace:Livet.Messaging;assembly=Livet"
 						xmlns:ViewModels="clr-namespace:Grabacr07.KanColleViewer.ViewModels"
 						xmlns:Models="clr-namespace:Grabacr07.KanColleWrapper.Models;assembly=KanColleWrapper"
 						xmlns:contents="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents"
 						xmlns:fleets="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents.Fleets">
+
 	<fleets:FleetsViewModel.Fleets>
 		<fleets:FleetViewModel Id="1"
 							   Name="サンプル第一艦隊">
@@ -427,7 +428,7 @@
 											 MaxArmer="58"
 											 MaxAA="97"
 											 MaxEvasion="10"
-											 Name="飛行場姫"
+											 Name="Октябрьская революция"
 											 Speed="Low">
 								<Models:ShipInfo.ShipType>
 									<Models:ShipType Name="航空戦艦" />
@@ -1755,7 +1756,7 @@
 											 MaxArmer="58"
 											 MaxAA="97"
 											 MaxEvasion="10"
-											 Name="飛行場姫"
+											 Name="Октябрьская революция"
 											 Speed="Low">
 								<Models:ShipInfo.ShipType>
 									<Models:ShipType Name="航空戦艦" />
@@ -1772,6 +1773,23 @@
 					</Models:Ship>
 				</contents:ShipViewModel.Ship>
 			</contents:ShipViewModel>
+
+			<fleets:FleetViewModel.State>
+				<fleets:FleetStateViewModel
+					TotalLevel="56"
+					TotalFire="310"
+					TotalAir="98"
+					TotalASW="120"
+					TotalReconn="133"
+					Decision33_1="10.2"
+					Decision33_2="20.5"
+					Decision33_3="30.2"
+					Decision33_4="120.2"
+					MinAirSuperiorityPotential="100"
+					MaxAirSuperiorityPotential="200" />
+
+			</fleets:FleetViewModel.State>
+
 		</fleets:FleetViewModel>
 	</fleets:FleetsViewModel.SelectedFleet>
 </fleets:FleetsViewModel>

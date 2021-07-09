@@ -106,6 +106,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Analyzers\KanColleViewer.PluginAnalyzer\KanColleViewer.PluginAnalyzer.csproj">
+      <Project>{b84f1251-4042-4adc-955e-415469947538}</Project>
+      <Name>KanColleViewer.PluginAnalyzer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Grabacr07.KanColleViewer.Composition\KanColleViewer.Composition.csproj">
       <Project>{cc139e98-d847-41da-b20f-8aca4564f375}</Project>
       <Name>KanColleViewer.Composition</Name>
