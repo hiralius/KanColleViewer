@@ -13,6 +13,7 @@
 			 xmlns:metro2="clr-namespace:MetroTrilithon.UI.Controls;assembly=MetroTrilithon.Desktop"
 			 xmlns:properties="clr-namespace:Grabacr07.KanColleViewer.Properties"
 			 xmlns:vContents="clr-namespace:Grabacr07.KanColleViewer.Views.Contents"
+			 xmlns:vConverters="clr-namespace:Grabacr07.KanColleViewer.Views.Converters"
 			 xmlns:vmContents="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents"
 			 xmlns:controls="clr-namespace:Grabacr07.KanColleViewer.Views.Controls"
 			 xmlns:catalogs="clr-namespace:Grabacr07.KanColleViewer.Views.Catalogs"
@@ -26,6 +27,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<kcvv:HasFlagConverter x:Key="HasFlagConverter" />
+			<vConverters:TrimmedTextBlockVisibilityConverter x:Key="TrimmedTextBlockVisibilityConverter" />
 
 			<Style TargetType="{x:Type Border}">
 				<Setter Property="BorderBrush"
@@ -121,9 +123,6 @@
 													DataContext="{Binding SelectedFleet}"
 													Margin="0,7,0,3" />
 
-					<ScrollViewer HorizontalScrollBarVisibility="Auto"
-								  VerticalScrollBarVisibility="Disabled" 
-								  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" >
 						<ItemsControl ItemsSource="{Binding SelectedFleet.Ships}"
 									  Background="Transparent"
 									  Grid.IsSharedSizeScope="True">
@@ -145,31 +144,26 @@
 											</Style>
 										</StackPanel.Resources>
 
-										<Grid HorizontalAlignment="Left">
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="Auto"
+										<WrapPanel Orientation="Horizontal">
+											<Grid HorizontalAlignment="Left">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"
 																  SharedSizeGroup="Name" />
-												<ColumnDefinition Width="Auto"
+													<ColumnDefinition Width="Auto"
 																  SharedSizeGroup="Level" />
-												<ColumnDefinition Width="Auto"
-																  SharedSizeGroup="HP" />
-												<ColumnDefinition Width="Auto"
-																  SharedSizeGroup="Condition" />
-												<ColumnDefinition Width="Auto"
-																  SharedSizeGroup="Resources" />
-											</Grid.ColumnDefinitions>
+												</Grid.ColumnDefinitions>
 
-											<TextBlock ToolTipService.Placement="Relative"
-													   ToolTipService.HorizontalOffset="-9"
-													   ToolTipService.VerticalOffset="-3">
+												<TextBlock TextTrimming="CharacterEllipsis"
+													   MaxWidth="100"
+													   ToolTip="{Binding Ship.Info.Name}">
 												<Run Text="{Binding Ship.Info.Name, Mode=OneWay}"
 													 Style="{DynamicResource EmphaticTextElementStyleKey}" />
 												<LineBreak />
 												<Run Text="{Binding Ship.Info.ShipType.Name, Mode=OneWay}"
 													 FontSize="11" />
-											</TextBlock>
+												</TextBlock>
 
-											<TextBlock Grid.Column="1"
+												<TextBlock Grid.Column="1"
 													   Margin="12,0,0,0">
 												<Run Text="Lv." />
 												<Run Text="{Binding Ship.Level, Mode=OneWay}"
@@ -177,50 +171,64 @@
 												<LineBreak />
 												<Run Text="{Binding Ship.ExpForNextLevel, StringFormat=Next: {0}, Mode=OneWay}"
 													 FontSize="9" />
-											</TextBlock>
+												</TextBlock>
+											</Grid>
 
-											<Grid x:Name="HPIndicator"
-												  Grid.Column="2"
+											<Grid HorizontalAlignment="Left">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"
+																  SharedSizeGroup="HP" />
+												</Grid.ColumnDefinitions>
+
+												<Grid x:Name="HPIndicator"
+												  Grid.Column="0"
 												  Margin="12,1,12,0">
-												<Grid.RowDefinitions>
-													<RowDefinition Height="Auto" />
-													<RowDefinition Height="Auto" />
-												</Grid.RowDefinitions>
-												<TextBlock>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+													</Grid.RowDefinitions>
+													<TextBlock>
 													<Run Text="HP:" />
 													<Run Text="{Binding Ship.HP.Current, Mode=OneWay}"
 														 Style="{DynamicResource EmphaticTextElementStyleKey}" />
 													<Run Text="{Binding Ship.HP.Maximum, StringFormat=/{0}, Mode=OneWay}" />
-												</TextBlock>
-												<kcvc:ColorIndicator Grid.Row="1"
+													</TextBlock>
+													<kcvc:ColorIndicator Grid.Row="1"
 																	 Height="6"
 																	 LimitedValue="{Binding Ship.HP, Mode=OneWay}"
 																	 Margin="0,2,0,0" />
-											</Grid>
+												</Grid>
 
-											<Grid x:Name="RepairIndicator"
-												  Grid.Column="2"
+												<Grid x:Name="RepairIndicator"
+												  Grid.Column="0"
 												  Visibility="Collapsed"
 												  Margin="8,2,8,0">
-												<Border Background="{DynamicResource FleetRepairingBrushKey}"
+													<Border Background="{DynamicResource FleetRepairingBrushKey}"
 														Opacity=".4" />
-												<TextBlock Text="入渠中"
+													<TextBlock Text="入渠中"
 														   Style="{DynamicResource EmphaticTextStyleKey}"
 														   HorizontalAlignment="Center" />
-											</Grid>
+												</Grid>
 
-											<Grid x:Name="EvacuationIndicator"
-												  Grid.Column="2"
+												<Grid x:Name="EvacuationIndicator"
+												  Grid.Column="0"
 												  Visibility="Collapsed"
 												  Margin="8,2,8,0">
-												<Border Background="{DynamicResource FleetRepairingBrushKey}"
+													<Border Background="{DynamicResource FleetRepairingBrushKey}"
 														Opacity=".4" />
-												<TextBlock Text="退避済"
+													<TextBlock Text="退避済"
 														   Style="{DynamicResource EmphaticTextStyleKey}"
 														   HorizontalAlignment="Center" />
+												</Grid>
 											</Grid>
 
-											<TextBlock Grid.Column="3" Margin="10,0">
+											<Grid HorizontalAlignment="Left">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"
+																  SharedSizeGroup="Condition" />
+												</Grid.ColumnDefinitions>
+
+												<TextBlock Grid.Column="0" Margin="10,0">
 												<InlineUIContainer>
 													<kcvc:ConditionIcon ConditionType="{Binding Ship.ConditionType, Mode=OneWay}" />
 												</InlineUIContainer>
@@ -229,27 +237,35 @@
 												<LineBreak />
 												<Run Text="condition"
 													 FontSize="9" />
-											</TextBlock>
+												</TextBlock>
+											</Grid>
 
-											<Grid Grid.Column="4">
-												<Grid.RowDefinitions>
-													<RowDefinition Height="Auto" />
-													<RowDefinition Height="Auto" />
-												</Grid.RowDefinitions>
-												<kcvc:ColorIndicator Grid.Row="0"
+											<Grid HorizontalAlignment="Left">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"
+																  SharedSizeGroup="Resources" />
+												</Grid.ColumnDefinitions>
+
+												<Grid Grid.Column="0">
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+													</Grid.RowDefinitions>
+													<kcvc:ColorIndicator Grid.Row="0"
 														 Width="55"
 														 LimitedValue="{Binding Ship.Fuel, Mode=OneWay}"
 														 Height="6"
 														 Columns="5"
 														 Margin="0,8,0,7" />
-												<kcvc:ColorIndicator Grid.Row="1"
+													<kcvc:ColorIndicator Grid.Row="1"
 														 Width="55"
 														 LimitedValue="{Binding Ship.Bull, Mode=OneWay}"
 														 Height="6"
 														 Columns="5"
 														 VerticalAlignment="Top" />
+												</Grid>
 											</Grid>
-										</Grid>
+										</WrapPanel>
 										<Rectangle Height=".99"
 												   Margin="0,4,0,0"
 												   Style="{DynamicResource SeparatorRectangleStyleKey}" />
@@ -287,13 +303,13 @@
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>
-					</ScrollViewer>
 				</DockPanel>
 			</Border>
 
 			<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
-										MethodName="Jump"
-										MethodParameter="Expeditions">
+									 MethodName="Jump"
+									 MethodParameter="Expeditions" 
+									 MinWidth="100">
 				<StackPanel DataContext="{Binding Content.Expeditions}">
 					<TextBlock Text="{Binding Name}" />
 
@@ -333,8 +349,9 @@
 			</metro2:CallMethodButton>
 
 			<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
-										MethodName="Jump"
-										MethodParameter="Repairyard">
+									 MethodName="Jump"
+									 MethodParameter="Repairyard" 
+									 MinWidth="100">
 				<StackPanel DataContext="{Binding Content.Shipyard}">
 					<TextBlock Text="入渠ドック" />
 
@@ -377,62 +394,9 @@
 			</metro2:CallMethodButton>
 
 			<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
-										MethodName="Jump"
-										MethodParameter="Quests">
-				<StackPanel DataContext="{Binding Content.Quests}">
-					<TextBlock Text="{Binding Name}" />
-
-					<Rectangle Height=".99"
-								Margin="0,7,0,3"
-								Style="{DynamicResource SeparatorRectangleStyleKey}" />
-
-					<TextBlock Text="{Binding Resources.Quests_Untaken, Source={x:Static models:ResourceService.Current}, Mode=OneWay}"
-								Visibility="{Binding IsUntaken, Converter={StaticResource BooleanToVisibilityConverter}}"
-								HorizontalAlignment="Center"
-								Margin="0,5,0,0" />
-
-					<ItemsControl ItemsSource="{Binding Current}"
-									Visibility="{Binding IsUntaken, Converter={StaticResource UniversalBooleanToVisibilityConverter}, ConverterParameter=Collapsed:Visible}">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Grid Margin="0,4,0,0">
-									<Grid.Resources>
-										<kcvv:QuestCategoryToColorConverter x:Key="QuestCategoryToColorConverterKey" />
-									</Grid.Resources>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="*" />
-									</Grid.ColumnDefinitions>
-									<Rectangle Width="10"
-												Height="10"
-												VerticalAlignment="Center">
-										<Rectangle.Fill>
-											<SolidColorBrush Color="{Binding Category, Converter={StaticResource QuestCategoryToColorConverterKey}, Mode=OneWay}" />
-										</Rectangle.Fill>
-									</Rectangle>
-									<TextBlock x:Name="Title"
-												Grid.Column="1"
-												Text="{Binding Title, Mode=OneWay}"
-												Style="{DynamicResource DefaultTextStyleKey}"
-												Margin="4,0,0,0" />
-								</Grid>
-								<DataTemplate.Triggers>
-									<DataTrigger Binding="{Binding IsUntaken}"
-													Value="True">
-										<Setter TargetName="Title"
-												Property="Text"
-												Value="{Binding Resources.Quest_Title_Untaken, Source={x:Static kcvg:ResourceService.Current}, Mode=OneWay}" />
-									</DataTrigger>
-								</DataTemplate.Triggers>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-				</StackPanel>
-			</metro2:CallMethodButton>
-
-			<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
-										MethodName="Jump"
-										MethodParameter="Dockyard">
+									 MethodName="Jump"
+									 MethodParameter="Dockyard" 
+									 MinWidth="100">
 				<StackPanel DataContext="{Binding Content.Shipyard}">
 					<TextBlock Text="建造ドック" />
 
@@ -481,6 +445,61 @@
 										<Setter TargetName="Remaining"
 												Property="Text"
 												Value="{Binding Resources.Dockyard_Complete, Source={x:Static models:ResourceService.Current}, Mode=OneWay}" />
+									</DataTrigger>
+								</DataTemplate.Triggers>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</StackPanel>
+			</metro2:CallMethodButton>
+			
+			<metro2:CallMethodButton Style="{StaticResource JumbButtonStyleKey}"
+									 MethodName="Jump"
+									 MethodParameter="Quests" 
+									 MinWidth="100">
+				<StackPanel DataContext="{Binding Content.Quests}">
+					<TextBlock Text="{Binding Name}" />
+
+					<Rectangle Height=".99"
+								Margin="0,7,0,3"
+								Style="{DynamicResource SeparatorRectangleStyleKey}" />
+
+					<TextBlock Text="{Binding Resources.Quests_Untaken, Source={x:Static models:ResourceService.Current}, Mode=OneWay}"
+								Visibility="{Binding IsUntaken, Converter={StaticResource BooleanToVisibilityConverter}}"
+								HorizontalAlignment="Center"
+								Margin="0,5,0,0" />
+
+					<ItemsControl ItemsSource="{Binding Current}"
+									Visibility="{Binding IsUntaken, Converter={StaticResource UniversalBooleanToVisibilityConverter}, ConverterParameter=Collapsed:Visible}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Grid Margin="0,4,0,0">
+									<Grid.Resources>
+										<kcvv:QuestCategoryToColorConverter x:Key="QuestCategoryToColorConverterKey" />
+									</Grid.Resources>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Rectangle Width="10"
+												Height="10"
+												VerticalAlignment="Center">
+										<Rectangle.Fill>
+											<SolidColorBrush Color="{Binding Category, Converter={StaticResource QuestCategoryToColorConverterKey}, Mode=OneWay}" />
+										</Rectangle.Fill>
+									</Rectangle>
+									<TextBlock x:Name="Title"
+												Grid.Column="1"
+												Text="{Binding Title, Mode=OneWay}"
+												Style="{DynamicResource DefaultTextStyleKey}"
+												Margin="4,0,0,0" />
+								</Grid>
+								<DataTemplate.Triggers>
+									<DataTrigger Binding="{Binding IsUntaken}"
+													Value="True">
+										<Setter TargetName="Title"
+												Property="Text"
+												Value="{Binding Resources.Quest_Title_Untaken, Source={x:Static kcvg:ResourceService.Current}, Mode=OneWay}" />
 									</DataTrigger>
 								</DataTemplate.Triggers>
 							</DataTemplate>

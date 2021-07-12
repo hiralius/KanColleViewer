@@ -24,6 +24,7 @@
 	<UserControl.Resources>
 		<kcvv:HasFlagConverter x:Key="HasFlagConverter" />
 		<converters:RangeToBooleanConverter x:Key="RangeToBooleanConverter" />
+		<converters:TrimmedTextBlockVisibilityConverter x:Key="TrimmedTextBlockVisibilityConverter" />
 	</UserControl.Resources>
 
 	<i:Interaction.Triggers>
@@ -130,10 +131,18 @@
 										<TextBlock Grid.Column="1"
 												   Margin="4,0,10,0" 
 												   TextTrimming="CharacterEllipsis" 
-												   MaxWidth="200">
+												   TextWrapping="NoWrap"
+												   MaxWidth="140" >
 											<Run Text="{Binding Ship.Info.Name, Mode=OneWay}"
 												 FontSize="22"
 												 Style="{DynamicResource EmphaticTextElementStyleKey}" />
+											<TextBlock.ToolTip>
+												<ToolTip Visibility="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget, Converter={StaticResource TrimmedTextBlockVisibilityConverter}}">
+													<ToolTip.Content>
+														<TextBlock Text="{Binding Ship.Info.Name}" />
+													</ToolTip.Content>
+												</ToolTip>
+											</TextBlock.ToolTip>
 										</TextBlock>
 									</Grid>
 									

@@ -24,6 +24,8 @@
     <ExpressionBlendVersion>12.0.50716.0</ExpressionBlendVersion>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -274,6 +276,7 @@
     </Compile>
     <Compile Include="Views\Controls\MetroComboBox.cs" />
     <Compile Include="Views\Converters\RangeToBooleanConverter.cs" />
+    <Compile Include="Views\Converters\TrimmedTextBlockVisibilityConverter.cs" />
     <Compile Include="Views\InformationWindow.xaml.cs">
       <DependentUpon>InformationWindow.xaml</DependentUpon>
     </Compile>
