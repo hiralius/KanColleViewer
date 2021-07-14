@@ -120,6 +120,27 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 
 		#endregion
 
+		#region Mute 依存関係プロパティ
+
+		public bool Mute
+		{
+			get => (bool)this.GetValue(MuteProperty);
+			set => this.SetValue(MuteProperty, value);
+		}
+
+		public static readonly DependencyProperty MuteProperty =
+			DependencyProperty.Register(nameof(Mute), typeof(bool), typeof(KanColleHost), new UIPropertyMetadata(false, MuteChangedCallback));
+
+		private static void MuteChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			var instance = d as KanColleHost;
+			var host = instance.WebBrowser.GetBrowserHost();
+
+			host.SetAudioMuted(instance.Mute);
+		}
+
+		#endregion
+
 		public event EventHandler<Size> OwnerSizeChangeRequested;
 
 		public KanColleHost()

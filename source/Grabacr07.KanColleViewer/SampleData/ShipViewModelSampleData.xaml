@@ -1,4 +1,4 @@
-﻿<contents:ShipViewModel xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+<contents:ShipViewModel xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 						xmlns:models="clr-namespace:Grabacr07.KanColleWrapper.Models;assembly=KanColleWrapper"
 						xmlns:contents="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents">
 	<contents:ShipViewModel.Ship>
@@ -8,7 +8,8 @@
 					 ExpForNextLevel="129800"
 					 Condition="80"
 					 ConditionType="Brilliant"
-					 Situation="HeavilyDamaged">
+					 Situation="HeavilyDamaged"
+					 Speed="Fast">
 			<models:Ship.Info>
 				<models:ShipInfo Id="987"
 								 Name="Bismarck sechs"
@@ -16,8 +17,7 @@
 								 MaxFirepower="99"
 								 MaxTorpedo="95"
 								 MaxArmer="58"
-								 MaxAA="97"
-								 Speed="Fast">
+								 MaxAA="97">
 					<models:ShipInfo.ShipType>
 						<models:ShipType Name="重雷装巡洋戦艦" />
 					</models:ShipInfo.ShipType>

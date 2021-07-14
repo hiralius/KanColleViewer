@@ -133,6 +133,21 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 		#endregion
 
+		private bool _IsMute;
+
+		public bool IsMute
+		{
+			get => _IsMute;
+			private set
+			{
+				if(_IsMute != value)
+				{
+					_IsMute = value;
+					RaisePropertyChanged();
+				}
+			}
+		}
+
 		public KanColleWindowViewModel(bool isMainWindow) : base(isMainWindow)
 		{
 			this.Settings = SettingsHost.Instance<KanColleWindowSettings>();
@@ -142,6 +157,7 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 			this.Navigator = new NavigatorViewModel().AddTo(this);
 			this.Volume = new VolumeViewModel().AddTo(this);
+			this.Volume.Subscribe(nameof(this.Volume.IsMute), () => this.IsMute = this.Volume.IsMute);
 
 			this.ZoomFactor = new BrowserZoomFactor { Current = GeneralSettings.BrowserZoomFactor };
 			this.ZoomFactor
