@@ -134,7 +134,7 @@
 									   x:FieldModifier="private"
 									   DockPanel.Dock="{Binding BrowserDock2}"
 									   ZoomFactor="{Binding ZoomFactor.Current}"
-									   Mute="{Binding IsMute}"
+									   Mute="{Binding Volume.IsMute}"
 									   UserStyleSheet="{Binding Source={x:Static settings:GeneralSettings.UserStyleSheet}, Path=Value}"
 									   OwnerSizeChangeRequested="HandleKanColleHostSizeChangeRequested"
 									   Panel.ZIndex="1">

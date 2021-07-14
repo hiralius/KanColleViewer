@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace Grabacr07.KanColleViewer.PluginAnalyzer
 	[DiagnosticAnalyzer(LanguageNames.CSharp)]
 	public class DuplicateGuidAnalyzer : DiagnosticAnalyzer
 	{
-		public static readonly string DiagnosticId
+		public const string DiagnosticId
 			= "KanColleViewer_PluginAnalyzer_DuplicateGuid";
 
 		internal static readonly LocalizableString DuplicateGuidMessageFormat
