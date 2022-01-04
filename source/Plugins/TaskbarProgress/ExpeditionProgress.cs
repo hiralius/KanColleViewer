@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -104,8 +104,9 @@ namespace Grabacr07.KanColleViewer.Plugins
 		public void Update()
 		{
 			if (!this.initialized) return;
+			if (this.wrappers == null) return;
 
-			if (this.wrappers.Length == 0)
+				if (this.wrappers.Length == 0)
 			{
 				this.State = TaskbarItemProgressState.None;
 				this.Value = .0;
