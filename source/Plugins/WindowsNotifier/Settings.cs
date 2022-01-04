@@ -98,7 +98,7 @@ namespace Grabacr07.KanColleViewer.Plugins
 	{
 		public readonly ObservableCollection<SettingsBase> Collections;
 		private readonly string filename;
-		private XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<SettingsBase>));
+		private readonly XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<SettingsBase>));
 
 		public Settings(string settingsFile)
 		{

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using DesktopToast;
 using NAudio;
@@ -90,11 +91,24 @@ namespace Grabacr07.KanColleViewer.Plugins
 
 		private void PlaySound(string file)
 		{
-			if (!File.Exists(file)) throw new FileNotFoundException(file);
+			if (!File.Exists(file))
+			{
+				throw new FileNotFoundException(file);
+			}
 
-			WaveOut wave = new WaveOut();
-			wave.Init(new AudioFileReader(file));
-			wave.Play();
+			_ = Task.Run(() =>
+			{
+				using (var wave = new WaveOutEvent())
+				using (var player = new AudioFileReader(file))
+				{
+					wave.Init(player);
+					wave.Play();
+					while(wave.PlaybackState == PlaybackState.Playing)
+					{
+						Thread.Sleep(200);
+					}
+				}
+			});
 		}
 	}
 }

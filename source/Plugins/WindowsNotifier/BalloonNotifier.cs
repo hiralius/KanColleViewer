@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -19,19 +19,22 @@ namespace Grabacr07.KanColleViewer.Plugins
 		{
 			const string iconUri = "pack://application:,,,/KanColleViewer;Component/Assets/app.ico";
 
-			Uri uri;
-			if (!Uri.TryCreate(iconUri, UriKind.Absolute, out uri))
+			if (!Uri.TryCreate(iconUri, UriKind.Absolute, out Uri uri))
+			{
 				return;
+			}
 
-			var streamResourceInfo = System.Windows.Application.GetResourceStream(uri);
+			System.Windows.Resources.StreamResourceInfo streamResourceInfo = System.Windows.Application.GetResourceStream(uri);
 			if (streamResourceInfo == null)
+			{
 				return;
+			}
 
 			System.Windows.Application.Current.Dispatcher.Invoke(() =>
 			{
-				using (var stream = streamResourceInfo.Stream)
+				using (System.IO.Stream stream = streamResourceInfo.Stream)
 				{
-					this.notifyIcon = new NotifyIcon
+					notifyIcon = new NotifyIcon
 					{
 						Text = ProductInfo.Title,
 						Icon = new Icon(stream),
@@ -43,25 +46,28 @@ namespace Grabacr07.KanColleViewer.Plugins
 
 		protected override void NotifyCore(string header, string body, Action activated, Action<Exception> failed)
 		{
-			if (this.notifyIcon == null) return;
+			if (notifyIcon == null)
+			{
+				return;
+			}
 
 			System.Windows.Application.Current.Dispatcher.Invoke(() =>
 			{
 				if (activated != null)
 				{
-					this.notifyIcon.BalloonTipClicked -= this.activatedAction;
+					notifyIcon.BalloonTipClicked -= activatedAction;
 
-					this.activatedAction = (sender, args) => activated();
-					this.notifyIcon.BalloonTipClicked += this.activatedAction;
+					activatedAction = (sender, args) => activated();
+					notifyIcon.BalloonTipClicked += activatedAction;
 				}
 
-				this.notifyIcon.ShowBalloonTip(1000, header, body, ToolTipIcon.None);
+				notifyIcon.ShowBalloonTip(1000, header, body, ToolTipIcon.None);
 			});
 		}
 
 		public override void Dispose()
 		{
-			this.notifyIcon?.Dispose();
+			notifyIcon?.Dispose();
 		}
 	}
 }
