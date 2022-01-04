@@ -101,7 +101,7 @@
 						VerticalAlignment="Top"
 						WindowChrome.IsHitTestVisibleInChrome="True">
 				
-				<metro2:CallMethodButton Content="艦"
+				<metro2:CallMethodButton Content="娘"
 												 Visibility="{Binding InfoVisibility}"
 												 Padding="12,8"
 												 Margin="0,4,8,0"
@@ -118,7 +118,7 @@
 											 Margin="4,6,4,4" />
 				<metro:CaptionButton IsChecked="{Binding Settings.TopMost.Value, Mode=TwoWay}"
 									 ToolTip="{Binding Resources.Settings_Window_TopMost, Source={x:Static models:ResourceService.Current}, Mode=OneWay}"
-									 Style="{DynamicResource PinButtonStyleKey}" Margin="0,6,0,4" />
+									 Style="{DynamicResource MetroPinButtonStyleKey}" Margin="0,6,0,4" />
 				<metro:SystemButtons Margin="0" />
 			</StackPanel>
 			<TextBlock Text="{Binding Title}"

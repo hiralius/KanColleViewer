@@ -555,8 +555,10 @@ namespace Grabacr07.KanColleWrapper
 
 				var rawData = fleet.Ships[i].RawData;
 				rawData.api_nowhp = int.Parse(hp);
-				fleet.Ships[i].Update(rawData);
+				fleet.Ships[i].Update(rawData);				
 			}
+			fleet.State.Calculate();
+			fleet.State.Update();
 		}
 
 		#endregion
