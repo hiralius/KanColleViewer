@@ -89,7 +89,7 @@ namespace Grabacr07.KanColleViewer.Plugins
 
 		}
 
-		private void PlaySound(string file)
+		public static void PlaySound(string file)
 		{
 			if (!File.Exists(file))
 			{

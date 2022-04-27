@@ -74,6 +74,11 @@ namespace Grabacr07.KanColleViewer.Plugins
 
 		#endregion
 
+		public void TestSound()
+		{
+			Toast.PlaySound(File);
+		}
+
 		public void Reference()
 		{
 			var diag = new OpenFileDialog();
@@ -82,6 +87,8 @@ namespace Grabacr07.KanColleViewer.Plugins
 				File = diag.FileName;
 			}
 		}
+
+
 
 		public SettingsBase()
 		{
