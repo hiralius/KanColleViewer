@@ -42,12 +42,12 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 			_Master = new MasterData();
 
 			proxy.api_req_sortie_battleresult
-				.TryParse()
+				.TryParse<kcsapi_battleresult>()
 				.Where(x => x.IsSuccess)
 				.Subscribe(data => BattleResult(data));
 		}
 
-		private void BattleResult(SvData data)
+		private void BattleResult(SvData<kcsapi_battleresult> data)
 		{
 			string result = "";
 
@@ -55,6 +55,8 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 
 			// 出撃艦隊を取り出す
 			var fleet = KanColleClient.Current.Homeport.Organization.Fleets.First(x => x.Value.IsInSortie).Value;
+
+			result += $"出撃海域: {data.Data.api_quest_name}\n";
 
 			// 戦闘後HPを表示
 			for (int i = 0; i < 10; i++)
