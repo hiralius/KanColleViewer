@@ -29,7 +29,7 @@ namespace Grabacr07.KanColleViewer.Models.Cef
 				//BrowserSubprocessPath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName,
 				CachePath = CefBridge.CachePath,
 			};
-			cefSettings.CefCommandLineArgs.Add("disable-features", "AudioServiceOutOfProcess");
+			//cefSettings.CefCommandLineArgs.Add("disable-features", "AudioServiceOutOfProcess");
 			cefSettings.CefCommandLineArgs.Add("proxy-server", Settings.NetworkSettings.LocalProxySettingsString);
 
 			CefSharpSettings.SubprocessExitIfParentProcessClosed = true;

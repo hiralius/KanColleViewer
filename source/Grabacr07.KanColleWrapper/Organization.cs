@@ -471,13 +471,13 @@ namespace Grabacr07.KanColleWrapper
 					towOfferedShipIds = null;
 				});
 			proxy.api_req_sortie_battleresult
-				.TryParse()
+				.TryParse<kcsapi_battleresult>()
 				.Where(x => x.IsSuccess)
 				.Subscribe(x => {
-					if(x.api_escape_flag != 0)
+					if(x.Data.api_escape_flag != 0)
 					{
 						var ships = this.CombinedFleet.Fleets.SelectMany(f => f.Ships).ToArray();
-						evacuationOfferedShipIds = x.api_escape.api_escape_idx.Select(idx => ships[idx - 1].Id).ToArray();
+						evacuationOfferedShipIds = x.Data.api_escape.api_escape_idx.Select(idx => ships[idx - 1].Id).ToArray();
 					}
 					BattleResult(x);
 					});
@@ -553,7 +553,7 @@ namespace Grabacr07.KanColleWrapper
 			}
 		}
 
-		private void BattleResult(SvData data)
+		private void BattleResult(SvData<kcsapi_battleresult> data)
 		{
 			if (Combined) return;
 
