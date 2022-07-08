@@ -470,11 +470,27 @@ namespace Grabacr07.KanColleWrapper
 					evacuationOfferedShipIds = null;
 					towOfferedShipIds = null;
 				});
-
 			proxy.api_req_sortie_battleresult
 				.TryParse()
 				.Where(x => x.IsSuccess)
-				.Subscribe(x => BattleResult(x));
+				.Subscribe(x => {
+					if(x.api_escape_flag != 0)
+					{
+						var ships = this.CombinedFleet.Fleets.SelectMany(f => f.Ships).ToArray();
+						evacuationOfferedShipIds = x.api_escape.api_escape_idx.Select(idx => ships[idx - 1].Id).ToArray();
+					}
+					BattleResult(x);
+					});
+			proxy.api_req_sortie_goback_port
+				.Subscribe(_ =>
+				{
+					if (KanColleClient.Current.IsInSortie
+						&& evacuationOfferedShipIds != null
+						&& evacuationOfferedShipIds.Length >= 1)
+					{
+						this.evacuatedShipsIds.Add(evacuationOfferedShipIds[0]);
+					}
+				});
 		}
 
 
