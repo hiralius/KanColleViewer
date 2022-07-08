@@ -34,7 +34,7 @@ namespace Grabacr07.KanColleViewer.Plugins
 
 		object ITool.View => new SettingsView { DataContext = this.viewModel, };
 
-		public void Initialize() 
+		public void Initialize()
 		{
 			this.Settings = new Settings(FilePath);
 			Toast.Collections = Settings.Collections;

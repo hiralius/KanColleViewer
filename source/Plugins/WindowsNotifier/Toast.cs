@@ -72,10 +72,10 @@ namespace Grabacr07.KanColleViewer.Plugins
 			if ( (setting != null) && setting.Enable )
 			{
 				this.request.ToastAudio = ToastAudio.Silent;
-				Task.Run(() =>
-				{
-					PlaySound(setting.File);
-				});
+				_ = Task.Run(() =>
+				  {
+					  PlaySound(setting.File);
+				  });
 			}
 
 			ToastManager.ShowAsync(this.request)

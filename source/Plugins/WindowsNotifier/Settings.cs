@@ -16,9 +16,9 @@ namespace Grabacr07.KanColleViewer.Plugins
 {
 	public class SettingsBase : NotificationObject
 	{
-		#region Text 変更通知プロパティ
-
 		public String Header;
+
+		#region Text 変更通知プロパティ
 
 		private string _Text;
 
@@ -88,8 +88,6 @@ namespace Grabacr07.KanColleViewer.Plugins
 			}
 		}
 
-
-
 		public SettingsBase()
 		{
 
@@ -131,29 +129,30 @@ namespace Grabacr07.KanColleViewer.Plugins
 				{
 					Text = "遠征完了"
 				};
-				setting.PropertyChanged += Changed;
 				lists.Add(setting);
 
 				setting = new SettingsBase(Resources.Repairyard_NotificationMessage_Title)
 				{
 					Text = "入渠完了"
 				};
-				setting.PropertyChanged += Changed;
 				lists.Add(setting);
 
 				setting = new SettingsBase(Resources.Dockyard_NotificationMessage_Title)
 				{
 					Text = "建造完了"
 				};
-				setting.PropertyChanged += Changed;
 				lists.Add(setting);
 
 				setting = new SettingsBase("疲労回復完了")
 				{
 					Text = "疲労回復"
 				};
-				setting.PropertyChanged += Changed;
 				lists.Add(setting);
+			}
+
+			foreach (SettingsBase setting in lists)
+			{
+				setting.PropertyChanged += Changed;
 			}
 
 			return lists;
@@ -175,8 +174,9 @@ namespace Grabacr07.KanColleViewer.Plugins
 				//ファイルを閉じる
 				sw.Close();
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_ = MessageBox.Show(e.ToString());
 			}
 		}
 	}

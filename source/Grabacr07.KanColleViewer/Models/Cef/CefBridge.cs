@@ -21,17 +21,18 @@ namespace Grabacr07.KanColleViewer.Models.Cef
 		{
 			if (initialized) return;
 
-			CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
+			CefSharp.Cef.EnableHighDPISupport();
 
 			var cefSettings = new CefSettings()
 			{
 				BrowserSubprocessPath = Path.Combine(cefDirectory, "CefSharp.BrowserSubprocess.exe"),
+				//BrowserSubprocessPath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName,
 				CachePath = CefBridge.CachePath,
 			};
 			cefSettings.CefCommandLineArgs.Add("proxy-server", Settings.NetworkSettings.LocalProxySettingsString);
 
 			CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
-			CefSharp.Cef.Initialize(cefSettings);
+			CefSharp.Cef.Initialize(cefSettings, performDependencyCheck: true, browserProcessHandler: null);
 
 			initialized = true;
 		}
