@@ -29,7 +29,9 @@
 				   Style="{DynamicResource HeaderTextStyleKey}" />
 
 		<metro2:CallMethodButton>Test</metro2:CallMethodButton>
-		<TextBlock x:Name="Info"
-				   Text="{Binding Path=Master.Text}" />
+		
+		<TextBlock x:Name="map_id" Text="{Binding Path=Master.Text}" />
+		<TextBlock x:Name="Info" Text="{Binding Path=Master.Text}" />
+		
 	</StackPanel>
 </UserControl>
