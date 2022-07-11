@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -35,9 +35,9 @@ namespace utility
 			string lpDefault, byte[] lpReturnedString, uint nSize, string lpFileName);
 
 		/// <summary>
-		/// 設定ファイル名
+		/// 設定ファイルのパス
 		/// </summary>
-		private readonly string fileName;
+		private readonly string filePath;
 		/// <summary>
 		/// セクション名リスト
 		/// </summary>
@@ -46,15 +46,15 @@ namespace utility
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="fileName">設定ファイル名</param>
-		public ConfigFile(string fileName)
+		/// <param name="path">設定ファイルのパス</param>
+		public ConfigFile(string path)
 		{
-			this.fileName = fileName;
+			this.filePath = path;
 
 			// セクション名一覧を取得
 			sections = new List<string>();
 			var buff = new byte[STRING_MAX * SECTION_MAX];
-			var len = GetPrivateProfileStringByByteArray(null, null, null, buff, (uint)buff.Length, AppDomain.CurrentDomain.BaseDirectory + fileName);
+			var len = GetPrivateProfileStringByByteArray(null, null, null, buff, (uint)buff.Length, path);
 			if(len > 0)
 			{
 				var strs = Encoding.Default.GetString(buff, 0, (int)len - 1);
@@ -85,11 +85,11 @@ namespace utility
 		/// <param name="key">定義キー</param>
 		/// <param name="defStr">デフォルト定義</param>
 		/// <returns>定義情報</returns>
-		protected string GetString(string section, string key, string defStr)
+		public string GetString(string section, string key, string defStr)
 		{
 			StringBuilder sb = new StringBuilder(STRING_MAX);
 
-			uint ret = GetPrivateProfileString(section, key, defStr, sb, Convert.ToUInt32(sb.Capacity), AppDomain.CurrentDomain.BaseDirectory + fileName);
+			uint ret = GetPrivateProfileString(section, key, defStr, sb, Convert.ToUInt32(sb.Capacity), filePath);
 
 			if (ret != 0)
 				return sb.ToString();
@@ -107,7 +107,7 @@ namespace utility
 		/// カンマ区切りの番号リストを取得</br>
 		/// "A-B"とすることで、A～Bまでの連番も取得可能
 		/// </remarks>
-		protected IReadOnlyList<int> GetNumberList(string section, string key)
+		public IReadOnlyList<int> GetNumberList(string section, string key)
 		{
 
 			// 番号リスト(文字列)の取得
@@ -152,7 +152,7 @@ namespace utility
 		/// </summary>
 		/// <param name="section">セクション名</param>
 		/// <returns>true:セクション名あり</returns>
-		protected bool IsSectionExist(string section)
+		public bool IsSectionExist(string section)
 		{
 			return sections.Contains(section);
 		}

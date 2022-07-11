@@ -74,9 +74,6 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
-    </Reference>
     <Reference Include="Nekoxy, Version=1.5.3.21, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Nekoxy.1.5.3.21\lib\net45\Nekoxy.dll</HintPath>
     </Reference>
@@ -108,6 +105,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigFile.cs" />
     <Compile Include="MasterDataViewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -193,7 +191,9 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(SolutionDir)Grabacr07.KanColleViewer\bin\$(ConfigurationName)\Plugins"
 xcopy /Y "$(TargetDir)*.*" "$(SolutionDir)Grabacr07.KanColleViewer\bin\$(ConfigurationName)"
-move "$(SolutionDir)Grabacr07.KanColleViewer\bin\$(ConfigurationName)\$(TargetName).*" "$(SolutionDir)Grabacr07.KanColleViewer\bin\$(ConfigurationName)\Plugins"</PostBuildEvent>
+move "$(SolutionDir)Grabacr07.KanColleViewer\bin\$(ConfigurationName)\$(TargetName).*" "$(SolutionDir)Grabacr07.KanColleViewer\bin\$(ConfigurationName)\Plugins"
+copy "$(ProjectDir)AreaMapInfo.ini" "$(SolutionDir)Grabacr07.KanColleViewer\bin\$(ConfigurationName)\Plugins"
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
