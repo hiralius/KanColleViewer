@@ -3,8 +3,9 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
+			 xmlns:metro1="http://schemes.grabacr.net/winfx/2014/controls"			 
 			 xmlns:viewModels="clr-namespace:Grabacr07.KanColleViewer.Plugins.ViewModels"
+			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
 			 mc:Ignorable="d"
 			 d:DesignHeight="300"
 			 d:DesignWidth="300"
@@ -28,10 +29,18 @@
 		<TextBlock Text="艦これのマスター データを閲覧します。"
 				   Style="{DynamicResource HeaderTextStyleKey}" />
 
-		<metro2:CallMethodButton>Test</metro2:CallMethodButton>
-		
-		<TextBlock x:Name="map_id" Text="{Binding Path=Master.Text}" />
-		<TextBlock x:Name="Info" Text="{Binding Path=Master.Text}" />
-		
+		<!-- <metro2:CallMethodButton>Test</metro2:CallMethodButton> -->
+		<TextBlock x:Name="Area">
+			海域： <Run Text="{Binding Path=Master.MapID}" /> <Run Text="{Binding Path=Master.Area}" />
+		</TextBlock>
+
+		<TextBlock x:Name="Cell" Margin="0,0,0,5">
+			進撃位置： <Run Text="{Binding Path=Master.CellID}" />
+		</TextBlock>
+
+		<ScrollViewer VerticalScrollBarVisibility="Auto">
+			<metro1:PromptTextBox x:Name="Info" Margin="1" IsReadOnly="True"
+			Text="{Binding Path=Master.Info}" />
+		</ScrollViewer>
 	</StackPanel>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +20,16 @@ namespace Grabacr07.KanColleWrapper.Models.Raw
 		public int api_next { get; set; }
 		public int api_bosscell_no { get; set; }
 		public int api_bosscomp { get; set; }
+		public API_Cell_Data[] api_cell_data { get; set; }
 	}
+
+	public class API_Cell_Data
+	{
+		public int api_id { get; set; }
+		public int api_no { get; set; }
+		public int api_color_no { get; set; }
+		public int api_passed { get; set; }
+	}
+
 	// ReSharper restore InconsistentNaming
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -442,14 +443,17 @@ namespace Grabacr07.KanColleWrapper
 
 			proxy.api_req_combined_battle_battleresult
 				.TryParse<kcsapi_combined_battle_battleresult>()
-				.Where(x => x.Data.api_escape != null)
-				.Select(x => x.Data)
 				.Subscribe(x =>
 				{
-					if (this.CombinedFleet == null) return;
-					var ships = this.CombinedFleet.Fleets.SelectMany(f => f.Ships).ToArray();
-					evacuationOfferedShipIds = x.api_escape.api_escape_idx.Select(idx => ships[idx - 1].Id).ToArray();
-					towOfferedShipIds = x.api_escape.api_tow_idx.Select(idx => ships[idx - 1].Id).ToArray();
+					var result = x.Data;
+					if ((this.CombinedFleet != null) && (x.Data.api_escape != null))
+					{
+						var ships = this.CombinedFleet.Fleets.SelectMany(f => f.Ships).ToArray();
+						evacuationOfferedShipIds = result.api_escape.api_escape_idx.Select(idx => ships[idx - 1].Id).ToArray();
+						towOfferedShipIds = result.api_escape.api_tow_idx.Select(idx => ships[idx - 1].Id).ToArray();
+					}
+
+					BattleResult(x.Request);
 				});
 			proxy.api_req_combined_battle_goback_port
 				.Subscribe(_ =>
@@ -476,10 +480,10 @@ namespace Grabacr07.KanColleWrapper
 				.Subscribe(x => {
 					if(x.Data.api_escape_flag != 0)
 					{
-						var ships = this.CombinedFleet.Fleets.SelectMany(f => f.Ships).ToArray();
+						var ships = Fleets.First(f => f.Value.IsInSortie).Value.Ships;
 						evacuationOfferedShipIds = x.Data.api_escape.api_escape_idx.Select(idx => ships[idx - 1].Id).ToArray();
 					}
-					BattleResult(x);
+					BattleResult(x.Request);
 					});
 			proxy.api_req_sortie_goback_port
 				.Subscribe(_ =>
@@ -553,28 +557,44 @@ namespace Grabacr07.KanColleWrapper
 			}
 		}
 
-		private void BattleResult(SvData<kcsapi_battleresult> data)
+		private void BattleResult(NameValueCollection request)
 		{
-			if (Combined) return;
-
 			// 出撃艦隊を取り出す
-			var fleet = Fleets.First(x => x.Value.IsInSortie).Value;
+			var fleets = Fleets.Where(x => x.Value.IsInSortie).Select(x => x.Value).ToArray();
 
 			// 戦闘後HPを更新
 			for (int i = 0; i < 10; i++)
 			{
-				string hp = data.Request[$"api_l_value[{i}]"];
+				string hp = request[$"api_l_value[{i}]"];
 				if (hp == null)
 				{
 					continue;
 				}
 
-				var rawData = fleet.Ships[i].RawData;
+				var rawData = fleets[0].Ships[i].RawData;
 				rawData.api_nowhp = int.Parse(hp);
-				fleet.Ships[i].Update(rawData);				
+				fleets[0].Ships[i].Update(rawData);				
 			}
-			fleet.State.Calculate();
-			fleet.State.Update();
+			fleets[0].State.Calculate();
+			fleets[0].State.Update();
+
+			if(fleets.Length > 1)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					string hp = request[$"api_l_value2[{i}]"];
+					if (hp == null)
+					{
+						continue;
+					}
+
+					var rawData = fleets[1].Ships[i].RawData;
+					rawData.api_nowhp = int.Parse(hp);
+					fleets[1].Ships[i].Update(rawData);
+				}
+				fleets[1].State.Calculate();
+				fleets[1].State.Update();
+			}
 		}
 
 		#endregion

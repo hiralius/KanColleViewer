@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -22,6 +22,10 @@ namespace Grabacr07.KanColleWrapper.Models
 
 		public T Data => this.RawData.api_data;
 
+#if DEBUG
+		public byte[] Raw { get; set; }
+#endif
+
 		public kcsapi_deck[] Fleets => this.RawData.api_data_deck;
 
 		public SvData(svdata<T> rawData, string reqBody)
@@ -36,6 +40,10 @@ namespace Grabacr07.KanColleWrapper.Models
 		public NameValueCollection Request { get; private set; }
 
 		public bool IsSuccess => this.RawData.api_result == 1;
+
+#if DEBUG
+		public byte[] Raw { get; protected set; }
+#endif
 
 		public SvData(svdata rawData, string reqBody)
 			: base(rawData)
@@ -54,6 +62,9 @@ namespace Grabacr07.KanColleWrapper.Models
 			{
 				var rawResult = serializer.ReadObject(stream) as svdata<T>;
 				var result = new SvData<T>(rawResult, session.Request.BodyAsString);
+#if DEBUG
+				result.Raw = bytes;
+#endif
 				return result;
 			}
 		}
@@ -86,6 +97,9 @@ namespace Grabacr07.KanColleWrapper.Models
 			{
 				var rawResult = serializer.ReadObject(stream) as svdata;
 				var result = new SvData(rawResult, session.Request.BodyAsString);
+#if DEBUG
+				result.Raw = bytes;
+#endif
 				return result;
 			}
 		}
