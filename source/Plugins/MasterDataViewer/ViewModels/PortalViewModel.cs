@@ -142,7 +142,7 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 			}
 			else
 			{
-				Master.CellID = $"\'{(char)('@' + id)}\'";
+				Master.CellID = $"\'{(char)('@' + id)}\'({id})";
 			}
 		}
 		private void BattleResult(NameValueCollection request)
