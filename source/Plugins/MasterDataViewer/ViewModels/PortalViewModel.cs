@@ -168,6 +168,7 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 					Master.Area = $"{area.Name} {map.Name}";
 					Master.MapID = $"{result.api_maparea_id}-{result.api_mapinfo_no}";
 					Master.CellID = $"{result.api_no}";
+					Master.Info = "";
 
 					// 海域情報を作る
 					ReadMapInfo(Master.MapID, result.api_cell_data.Length);
