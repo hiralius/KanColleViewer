@@ -76,6 +76,21 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// 地図画像
+		/// </summary>
+		private string _mapImage;
+		public string MapImage
+		{
+			get { return _mapImage; }
+			set
+			{
+				if (_mapImage == value) return;
+				_mapImage = value;
+				RaisePropertyChanged();
+			}
+		}
+
 		public string[] Enemies { get; private set; }
 
 		public Dictionary<int, string> CellInfo { get; private set; }
@@ -152,6 +167,8 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 		private static string ConfigFilePath { get; } = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName,
 			 ConfigFileName);
 
+		private static string MapFolder { get; } = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName, "Maps");
+
 		public PortalViewModel(KanColleProxy proxy)
 		{
 			Master = new MasterData();
@@ -169,6 +186,7 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 					Master.MapID = $"{result.api_maparea_id}-{result.api_mapinfo_no}";
 					Master.CellID = $"{result.api_no}";
 					Master.Info = "";
+					Master.MapImage = $"{MapFolder}\\{Master.MapID}.jpg";
 
 					// 海域情報を作る
 					ReadMapInfo(Master.MapID, result.api_cell_data.Length);
@@ -248,7 +266,7 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 				kindIndex += 20;
 			}
 
-			Master.CellID = $"{cell} \'{CellEvents[eventID]}\'／\'{CellKinds[kindIndex]}\'";
+			Master.CellID = $"{cell} [\'{CellEvents[eventID]}\'／\'{CellKinds[kindIndex]}\']";
 		}
 
 		/// <summary>

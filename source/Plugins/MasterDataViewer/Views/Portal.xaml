@@ -26,15 +26,17 @@
 	</UserControl.Resources>
 
 	<StackPanel Margin="8,0,8,8">
-		<TextBlock Text="艦これのマスター データを閲覧します。"
+		<TextBlock Text="艦これのマスター データを閲覧します。" Margin="0,0,0,10"
 				   Style="{DynamicResource HeaderTextStyleKey}" />
 
 		<!-- <metro2:CallMethodButton>Test</metro2:CallMethodButton> -->
-		<TextBlock x:Name="Area">
-			海域： <Run Text="{Binding Path=Master.MapID}" /> <Run Text="{Binding Path=Master.Area}" />
+		<TextBlock x:Name="Area" Margin="0,0,0,5" HorizontalAlignment="Center">
+			<Run Text="{Binding Path=Master.MapID}" /> <Run Text="{Binding Path=Master.Area}" />
 		</TextBlock>
 
-		<TextBlock x:Name="Cell" Margin="0,0,0,5">
+		<Image x:Name="MapImage" Source="{Binding Path=Master.MapImage}" Margin="0,0,0,5"/>
+
+		<TextBlock x:Name="Cell" Margin="0,0,0,10" FontWeight="Bold">
 			進撃位置： <Run Text="{Binding Path=Master.CellID}" />
 		</TextBlock>
 
