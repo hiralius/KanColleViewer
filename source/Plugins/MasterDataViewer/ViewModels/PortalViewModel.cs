@@ -91,13 +91,31 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 			}
 		}
 
-		public string[] Enemies { get; private set; }
+		/// <summary>
+		/// 敵艦情報
+		/// </summary>
+		public class EnemyInfo
+		{
+			public string Name;
+			public int Level;
+
+			public EnemyInfo(string name, int level)
+			{
+				Name = name;
+				Level = level;
+			}
+		}
+
+		/// <summary>
+		/// 敵艦隊情報
+		/// </summary>
+		public List<EnemyInfo> Enemies { get; private set; }
 
 		public Dictionary<int, string> CellInfo { get; private set; }
 
 		public MasterData()
 		{
-			Enemies = new string[20];
+			Enemies = new List<EnemyInfo>();
 			CellInfo = new Dictionary<int, string>();
 		}
 
@@ -201,6 +219,23 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 					ChangeCellID(data.Data.api_no, data.Data.api_event_id, data.Data.api_event_kind);
 				});
 
+			_ = proxy.api_req_sortie_battle
+				.TryParse<kcsapi_battle>()
+				.Where(x => x.IsSuccess)
+				.Subscribe(data =>
+				{
+					UpdateEnemy(data.Data.api_ship_ke, data.Data.api_ship_lv);
+				});
+			_ = proxy.api_req_combined_battle_battle
+				.TryParse<kcsapi_combined_battle>()
+				.Where(x => x.IsSuccess)
+				.Subscribe(data =>
+				{
+					UpdateEnemy(data.Data.api_ship_ke, data.Data.api_ship_lv);
+				});
+
+
+
 
 			_ = proxy.api_req_sortie_battleresult
 				.TryParse<kcsapi_battleresult>()
@@ -240,6 +275,36 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 		}
 
 		/// <summary>
+		/// 敵艦情報更新
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="level"></param>
+		private void UpdateEnemy(int[] ids, int[] level)
+		{
+			Master.Enemies.Clear();
+			var info = "敵艦隊\n";
+
+			int index = 0;
+			foreach(var id in ids)
+			{
+				var ship = KanColleClient.Current.Master.Ships[id];
+				var name = ship.Name;
+				if(ship.Kana.Length > 0)
+				{
+					name += $"({ship.Kana})";
+				}
+				var lv = level[index++];
+
+				var enemy = new MasterData.EnemyInfo(name, lv);
+				Master.Enemies.Add(enemy);
+
+				info += $"{index}: {name} Lv{lv}\n";
+			}
+			info += "\n";
+			Master.Info = info;
+		}
+
+		/// <summary>
 		/// 進撃位置更新
 		/// </summary>
 		/// <param name="id">セルID</param>
@@ -266,7 +331,7 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 				kindIndex += 20;
 			}
 
-			Master.CellID = $"{cell} [\'{CellEvents[eventID]}\'／\'{CellKinds[kindIndex]}\']";
+			Master.CellID = $"{cell} [{CellEvents[eventID]}／{CellKinds[kindIndex]}]";
 		}
 
 		/// <summary>
@@ -331,7 +396,7 @@ namespace Grabacr07.KanColleViewer.Plugins.ViewModels
 					continue;
 				}
 
-				result += $"enemy{i + 1} = {hp}\n";
+				result += $"{Master.Enemies[i].Name} = {hp}\n";
 			}
 			
 			Master.Info = result;

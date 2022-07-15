@@ -25,24 +25,43 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<StackPanel Margin="8,0,8,8">
-		<TextBlock Text="艦これのマスター データを閲覧します。" Margin="0,0,0,10"
-				   Style="{DynamicResource HeaderTextStyleKey}" />
+	<Grid Margin="8,0,8,8">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		
+		<TextBlock Grid.Row="0"
+				   Margin="0,0,0,10"
+				   Style="{DynamicResource HeaderTextStyleKey}"
+				   Text="艦これのマスター データを閲覧します。" />
 
 		<!-- <metro2:CallMethodButton>Test</metro2:CallMethodButton> -->
-		<TextBlock x:Name="Area" Margin="0,0,0,5" HorizontalAlignment="Center">
+		<TextBlock x:Name="Area" 
+				   Grid.Row="1"
+				   Margin="0,0,0,5" 
+				   HorizontalAlignment="Center">
 			<Run Text="{Binding Path=Master.MapID}" /> <Run Text="{Binding Path=Master.Area}" />
 		</TextBlock>
 
-		<Image x:Name="MapImage" Source="{Binding Path=Master.MapImage}" Margin="0,0,0,5"/>
+		<Image x:Name="MapImage" 
+			   Grid.Row="2"
+			   Margin="0,0,0,5"
+			   Source="{Binding Path=Master.MapImage}" />
 
-		<TextBlock x:Name="Cell" Margin="0,0,0,10" FontWeight="Bold">
+		<TextBlock x:Name="Cell" 
+				   Grid.Row="3"
+				   Margin="0,0,0,10" FontWeight="Bold">
 			進撃位置： <Run Text="{Binding Path=Master.CellID}" />
 		</TextBlock>
 
-		<ScrollViewer VerticalScrollBarVisibility="Auto">
-			<metro1:PromptTextBox x:Name="Info" Margin="1" IsReadOnly="True"
-			Text="{Binding Path=Master.Info}" />
-		</ScrollViewer>
-	</StackPanel>
+		<metro1:PromptTextBox x:Name="Info" 
+							  Grid.Row="4"
+							  Margin="1" IsReadOnly="False"
+			VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto"
+			Text="{Binding Path=Master.Info}"  />
+	</Grid>
 </UserControl>
