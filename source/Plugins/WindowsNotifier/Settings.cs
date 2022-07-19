@@ -167,6 +167,13 @@ namespace Grabacr07.KanColleViewer.Plugins
 		{
 			try
 			{
+				// 保存先ディレクトリが無ければ作る
+				var dir = Path.GetDirectoryName(filename);
+				if (!Directory.Exists(dir))
+				{
+					Directory.CreateDirectory(dir);
+				}
+
 				//書き込むファイルを開く（UTF-8 BOM無し）
 				var sw = new StreamWriter(filename, false, new UTF8Encoding(false));
 				//シリアル化し、XMLファイルに保存する
