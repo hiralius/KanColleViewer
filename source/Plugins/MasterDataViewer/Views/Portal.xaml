@@ -10,7 +10,7 @@
 			 mc:Ignorable="d"
 			 d:DesignHeight="300"
 			 d:DesignWidth="300"
-			 d:DataContext="{d:DesignInstance viewModels:PortalViewModel}" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+			 d:DataContext="{d:DesignInstance viewModels:PortalViewModel}"
 			 >
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -69,8 +69,8 @@
 			<metro1:PromptTextBox x:Name="Info" 
 								  Grid.Row="4" Grid.ColumnSpan="2"
 								  Margin="1" IsReadOnly="True"
-				VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto"
-				Text="{Binding Path=Master.Info}"  />
+								  VerticalContentAlignment="Top"
+								  Text="{Binding Path=Master.Info}"  />
 		</Grid>
 	</ScrollViewer>
 </UserControl>

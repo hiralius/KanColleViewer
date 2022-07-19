@@ -24,8 +24,13 @@ namespace Grabacr07.KanColleViewer.Plugins
 		/// を繋げたもの（デフォルトはこれ）
 		/// </summary>
 		private static string FileName => "NotifySettings.txt";
-		private static string FilePath { get; } = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName,
-			 FileName);
+		private static string FilePath { get; } = Path.Combine(
+				Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+				"grabacr.net",
+				"KanColleViewer",
+				"Plugins",
+				FileName
+			);
 
 		private SettingsViewModel viewModel;
 		public Settings Settings;
