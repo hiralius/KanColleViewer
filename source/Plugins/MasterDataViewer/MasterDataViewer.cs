@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Grabacr07.KanColleViewer.Composition;
 using Grabacr07.KanColleViewer.Plugins.ViewModels;
 using Grabacr07.KanColleViewer.Plugins.Views;
-using Grabacr07.KanColleWrapper;
 
 namespace Grabacr07.KanColleViewer.Plugins
 {
@@ -20,18 +19,16 @@ namespace Grabacr07.KanColleViewer.Plugins
 	[ExportMetadata("Author", "@Grabacr07")]
 	public class MasterDataViewer : IPlugin, ITool, ISettings
 	{
-		private PortalViewModel portalViewModel;
+		private readonly PortalViewModel portalViewModel = new PortalViewModel();
+
+		public void Initialize()
+		{
+		}
 
 		string ITool.Name => "MasterView";
 
 		object ITool.View => new Portal { DataContext = this.portalViewModel };
 
 		object ISettings.View => new Settings();
-
-		public void Initialize()
-		{
-			portalViewModel = new PortalViewModel(KanColleClient.Current.Proxy);
-		}
-
 	}
 }
