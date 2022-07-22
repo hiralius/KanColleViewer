@@ -136,7 +136,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 			var instance = d as KanColleHost;
 			var host = instance.WebBrowser.GetBrowserHost();
 
-			host.SetAudioMuted(instance.Mute);
+			host?.SetAudioMuted(instance.Mute);
 		}
 
 		#endregion
