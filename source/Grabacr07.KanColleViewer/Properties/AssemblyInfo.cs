@@ -16,4 +16,4 @@ using System.Windows;
 	ResourceDictionaryLocation.SourceAssembly)]
 
 [assembly: AssemblyVersion("4.5.2")]
-[assembly: AssemblyInformationalVersion("Custom IV")]
+[assembly: AssemblyInformationalVersion("Custom V")]

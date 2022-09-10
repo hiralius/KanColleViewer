@@ -25,6 +25,35 @@
 		<kcvv:HasFlagConverter x:Key="HasFlagConverter" />
 		<converters:RangeToBooleanConverter x:Key="RangeToBooleanConverter" />
 		<converters:TrimmedTextBlockVisibilityConverter x:Key="TrimmedTextBlockVisibilityConverter" />
+
+		<Style TargetType="{x:Type ToolTip}">
+			<Setter Property="OverridesDefaultStyle"
+						Value="True" />
+			<Setter Property="HasDropShadow"
+						Value="True" />
+			<Setter Property="Foreground"
+						Value="{DynamicResource AccentForegroundBrushKey}" />
+			<Setter Property="Placement" Value="MousePoint"/>
+			<Setter Property="HorizontalOffset" Value="30"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ToolTip">
+						<Border Name="Border"
+									BorderThickness=".99"
+									BorderBrush="{DynamicResource BorderBrushKey}"
+									Background="{DynamicResource BackgroundBrushKey}"
+									Padding="8,4"
+									SnapsToDevicePixels="True">
+							<ContentPresenter />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style TargetType="{x:Type TextBlock}"
+				   BasedOn="{StaticResource DefaultTextStyleKey}" >
+			<Setter Property="ToolTipService.ShowDuration" Value="300000"/>
+		</Style>
 	</UserControl.Resources>
 
 	<i:Interaction.Triggers>
@@ -138,9 +167,7 @@
 												 Style="{DynamicResource EmphaticTextElementStyleKey}" />
 											<TextBlock.ToolTip>
 												<ToolTip Visibility="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget, Converter={StaticResource TrimmedTextBlockVisibilityConverter}}">
-													<ToolTip.Content>
-														<TextBlock Text="{Binding Ship.Info.Name}" />
-													</ToolTip.Content>
+													<Run Text="{Binding Ship.Info.Name, Mode=OneWay}" />
 												</ToolTip>
 											</TextBlock.ToolTip>
 										</TextBlock>
@@ -160,10 +187,60 @@
 										<!-- 艦レベル -->
 										<TextBlock Grid.Column="0"
 											   Grid.Row="0"
-											   Margin="10,0,10,2">
+											   Margin="10,0,10,2"
+											   ToolTipService.ShowDuration="300000">
 											<Run Text="Lv." />
 											<Run Text="{Binding Ship.Level, Mode=OneWay}"
 												 Style="{DynamicResource EmphaticTextElementStyleKey}" />
+											<TextBlock.ToolTip>
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="Auto" SharedSizeGroup="ShipParam"/>
+														<ColumnDefinition Width="Auto" SharedSizeGroup="ShipParam"/>
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition/>
+														<RowDefinition/>
+														<RowDefinition/>
+														<RowDefinition/>
+														<RowDefinition/>
+														<RowDefinition/>
+													</Grid.RowDefinitions>
+													<TextBlock Grid.Row="0" Grid.Column="0">
+															耐久：<Run Text="{Binding Ship.HP.Maximum, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="0" Grid.Column="1">
+															火力：<Run Text="{Binding Ship.FireCurrent, Mode=OneWay}"/>
+													</TextBlock>
+													<TextBlock Grid.Row="1" Grid.Column="0">
+															装甲：<Run Text="{Binding Ship.ArmorCurrent, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="1" Grid.Column="1">
+															雷装：<Run Text="{Binding Ship.TorpedoCurrent, Mode=OneWay}"/>
+													</TextBlock>
+													<TextBlock Grid.Row="2" Grid.Column="0">
+															回避：<Run Text="{Binding Ship.AvoidCurrent, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="2" Grid.Column="1">
+															対空：<Run Text="{Binding Ship.AACurrent, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="3" Grid.Column="0">
+															対潜：<Run Text="{Binding Ship.ASW, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="3" Grid.Column="1">
+															索敵：<Run Text="{Binding Ship.ViewRange, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="4" Grid.Column="0">
+															運 　：<Run Text="{Binding Ship.Luck.Current, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="5" Grid.Column="0">
+															射程：<Run Text="{Binding Ship.ShootingRange, Mode=OneWay}" />
+													</TextBlock>
+													<TextBlock Grid.Row="5" Grid.Column="1">
+															速力：<Run Text="{Binding Ship.SpeedString, Mode=OneWay}" />
+													</TextBlock>
+												</Grid>
+											</TextBlock.ToolTip>
 										</TextBlock>
 
 										<!-- レベルアップまでの残り経験値 -->

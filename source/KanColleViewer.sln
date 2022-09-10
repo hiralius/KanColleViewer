@@ -96,7 +96,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDatConvert", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDataViewer", "Plugins\MasterDataViewer\MasterDataViewer.csproj", "{08226BB3-A7A0-49E3-84DE-ED5B7A7D293E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleInfo", "..\..\BattleInfo\BattleInfo.csproj", "{3B7DA7FC-8B23-461C-A6F3-853D05C67D31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleInfo", "..\..\BattileInfo\BattleInfo.csproj", "{3B7DA7FC-8B23-461C-A6F3-853D05C67D31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
