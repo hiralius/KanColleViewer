@@ -327,6 +327,22 @@ namespace Grabacr07.KanColleWrapper
 		}
 
 		/// <summary>
+		/// エンド ポイント "/kcsapi/api_req_battle_midnight/sg_midnight" からのセッションを配信します。
+		/// </summary>
+		public IObservable<Session> api_req_battle_sp_midnight
+		{
+			get { return this.ApiSessionSource.Where(x => x.Request.PathAndQuery == "/kcsapi/api_req_battle_midnight/sp_midnight"); }
+		}
+
+		/// <summary>
+		/// エンド ポイント "/kcsapi/api_req_sortie/airbattle" からのセッションを配信します。
+		/// </summary>
+		public IObservable<Session> api_req_sortie_airbattle
+		{
+			get { return this.ApiSessionSource.Where(x => x.Request.PathAndQuery == "/kcsapi/api_req_sortie/airbattle"); }
+		}
+
+		/// <summary>
 		/// エンド ポイント "/kcsapi/api_req_sortie/goback_port" からのセッションを配信します。
 		/// </summary>
 		public IObservable<Session> api_req_sortie_goback_port
