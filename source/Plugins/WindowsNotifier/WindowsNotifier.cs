@@ -14,8 +14,8 @@ namespace Grabacr07.KanColleViewer.Plugins
 	[ExportMetadata("Guid", "6EDE38C8-412D-4A73-8FE3-A9D20EB9F0D2")]
 	[ExportMetadata("Title", "WindowsNotifier")]
 	[ExportMetadata("Description", "Windows OS の機能 (トースト通知・バルーン通知) を使用して通知します。")]
-	[ExportMetadata("Version", "2.1")]
-	[ExportMetadata("Author", "@Grabacr07")]
+	[ExportMetadata("Version", "2.3")]
+	[ExportMetadata("Author", "@Grabacr07, @hiralius")]
 	public class WindowsNotifier : IPlugin, ITool
 	{
 		/// <summary>
