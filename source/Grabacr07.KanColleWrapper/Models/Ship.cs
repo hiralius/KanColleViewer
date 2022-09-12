@@ -300,17 +300,57 @@ namespace Grabacr07.KanColleWrapper.Models
 
 		#endregion
 
+		#region 装備込みパラメータ
+		/// <summary>
+		/// 装備込み火力
+		/// </summary>
+		public int FireCurrent => this.RawData.api_karyoku.Get(0) ?? 0;
+
+		/// <summary>
+		/// 装備込み装甲
+		/// </summary>
+		public int ArmorCurrent => this.RawData.api_soukou.Get(0) ?? 0;
+
+		/// <summary>
+		/// 装備込み雷装
+		/// </summary>
+		public int TorpedoCurrent => this.RawData.api_raisou.Get(0) ?? 0;
+
+		/// <summary>
+		/// 装備込み回避
+		/// </summary>
+		public int AvoidCurrent => this.RawData.api_kaihi.Get(0) ?? 0;
+
+		/// <summary>
+		/// 装備込み対空
+		/// </summary>
+		public int AACurrent => this.RawData.api_taiku.Get(0) ?? 0;
+
+		/// <summary>
+		/// 装備込み対潜
+		/// </summary>
+		public int ASW => this.RawData.api_taisen.Get(0) ?? 0;
+
 		/// <summary>
 		/// 装備によるボーナスを含めた艦の速力を取得します。
 		/// </summary>
 		public ShipSpeed Speed => ShipSpeedConverter.FromInt32(this.RawData.api_soku);
 
 		/// <summary>
+		/// 速力(文字列)
+		/// </summary>
+		public string SpeedString => ShipSpeedConverter.ToString(Speed);
+
+		/// <summary>
 		/// 装備によるボーナスを含めた索敵ステータス値を取得します。
 		/// </summary>
 		public int ViewRange => this.RawData.api_sakuteki.Get(0) ?? 0;
 
-		public int ASW => this.RawData.api_taisen.Get(0) ?? 0;
+		/// <summary>
+		/// 射程(文字列)
+		/// </summary>
+		public string ShootingRange => RangeToString(this.RawData.api_leng);
+		#endregion
 
 		/// <summary>
 		/// 火力・雷装・対空・装甲のすべてのステータス値が最大値に達しているかどうかを示す値を取得します。
@@ -424,6 +464,25 @@ namespace Grabacr07.KanColleWrapper.Models
 		{
 			foreach (var slot in this.Slots.Where(x => x.Equipped)) yield return slot;
 			if (this.ExSlot.Equipped) yield return this.ExSlot;
+		}
+
+		private static string RangeToString(int range)
+		{
+			switch(range)
+			{
+				case 1:
+					return "短";
+				case 2:
+					return "中";
+				case 3:
+					return "長";
+				case 4:
+					return "超長";
+				case 5:
+					return "超長＋";
+				default:
+					return "不明";
+			}
 		}
 	}
 }

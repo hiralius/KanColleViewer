@@ -59,5 +59,22 @@ namespace Grabacr07.KanColleWrapper.Models
 
 			return ShipSpeed.Immovable;
 		}
+
+		public static string ToString(ShipSpeed speed)
+		{
+			switch(speed)
+			{
+				case ShipSpeed.Slow:
+					return "低速";
+				case ShipSpeed.Fast:
+					return "高速";
+				case ShipSpeed.Faster:
+					return "高速＋";
+				case ShipSpeed.Fastest:
+					return "最速";
+				default:
+					return "不明";					
+			}
+		}
 	}
 }
