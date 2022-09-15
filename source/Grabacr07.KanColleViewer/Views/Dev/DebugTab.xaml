@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Grabacr07.KanColleViewer.Views.Dev.DebugTab"
+<UserControl x:Class="Grabacr07.KanColleViewer.Views.Dev.DebugTab"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -13,6 +13,18 @@
 			 d:DesignWidth="700"
 			 d:DesignHeight="300"
 			 d:DataContext="{d:DesignInstance vm:DebugTabViewModel}">
-	<StackPanel Margin="10,0,10,10">
-	</StackPanel>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<controls:CallMethodButton Grid.Row="0"
+			Content="Reset" MethodName="Clear" />
+		<TextBox Grid.Row="1"
+			Text="{Binding TraceMessage}"
+			HorizontalScrollBarVisibility="Auto"
+			VerticalScrollBarVisibility="Auto"
+			IsReadOnly="True"
+			Margin="2,5" />
+	</Grid>
 </UserControl>
